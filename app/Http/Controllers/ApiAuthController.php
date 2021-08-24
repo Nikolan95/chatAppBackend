@@ -13,8 +13,10 @@ class ApiAuthController extends Controller
         try
         {
             $http = new \GuzzleHttp\Client;
+            $dev_url = 'http://localhost/atev-laravel-backend/public/oauth/token';
+            $live_url = 'http://195.4.160.243/oauth/token';
 
-            $response = $http->post('http://195.4.160.243/oauth/token', [
+            $response = $http->post($dev_url, [
                 'form_params' => [
                     'grant_type' => 'password',
                     'client_id' => '2',
