@@ -15,4 +15,8 @@ class Message extends Model
     {
         return $this->belongsTo(Conversation::class);
     }
+    public function offeritems()
+    {
+        return $this->hasMany(Offeritem::class);
+    }
 }

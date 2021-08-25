@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Conversation;
 use App\Models\Message;
+use App\Models\Offeritem;
 use App\Models\User;
 use App\Models\Group;
 use App\Events\Message as Message2;
@@ -94,8 +95,12 @@ class HomeController extends Controller
     }
     public function getMessages($conversation_id)
     {
-        $conversation = Conversation::where('id',$conversation_id)->get();
-
+        //$conversation = Conversation::where('id',$conversation_id)->get();
+        $conversation = Conversation::with('messages')->with('messages.offeritems')->where('id',$conversation_id)->get();
+        // $conversation = Conversation::whereHas('messages', function($q){
+        //     $q->with('offeritems');
+        // })->get();
+        //$conversation = Message::with('conversation', 'offeritems')->where('conversation.id', $conversation_id)->get();
         $count = count($conversation);
 		// $array = [];
 		for ($i = 0; $i < $count; $i++) {
@@ -107,17 +112,16 @@ class HomeController extends Controller
 				}
 			}
 		}
+        //dd($conversation);
         $conversation = ConversationResource::collection($conversation);
         // foreach($conversation[0]->messages as $message){
         //     $message->image = mb_convert_encoding($message->image, 'UTF-8', 'UTF-8');
         // }
         $conversation = $conversation->toArray($conversation);
 
-       
+       //dd($conversation);
+        //return $conversation;
             
-        
-
-
         return view('messages.conversation')->with('conversation', $conversation);
 
     }
@@ -188,6 +192,40 @@ class HomeController extends Controller
 
         $data = ['from' => $sender, 'to' => $reciever];
         $pusher->trigger('my-channel', 'my-event', $data);
+    }
+    public function sendOffer(Request $request)
+    {
+        $this->validate($request,[
+            'items.*.article' => 'required',
+            'items.*.name' => 'required',
+            'items.*.amount' => 'required',
+            'items.*.price' => 'required',
+      ]);
+     
+      $message = new Message;
+      $offerItem = new Offeritem;
+      
+      $message->read = false;
+      $message->user_id = $request->user_id;
+      $message->conversation_id = $request->conversation_id;
+
+      if ($message->save()) {
+          $id = $message->id;
+          foreach ($request->items as $item) {
+              $data = [
+                 'message_id' => $id,
+                 'articleNumber' => $item['article'],
+                 'name' => $item['name'],
+                 'amount' => $item['amount'],
+                 'price' => $item['price'],
+                 'total' => $item['amount']*$item['price']
+              ];
+              Offeritem::insert($data);
+          }
+      }
+
+      
+      return redirect()->route('dashboard');
     }
     public function conversationCreate(Request $request)
     {

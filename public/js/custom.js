@@ -16,6 +16,8 @@ $(document).ready(function () {
         sursId = $(this).attr('itemid');
         $('#cnv').val(conversationId);
         $('#susr').val(sursId);
+        $('#cnv1').val(conversationId);
+        $('#susr1').val(sursId);
         $('#groupUserId').val(sursId);
 
      

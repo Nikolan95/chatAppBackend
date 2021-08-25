@@ -10,12 +10,12 @@
                             </div>
                             <div class="chat-content">
                                 <div class="message-content">
+                                    @if($line->body != null)
                                     {{$line->body}}
-                                    @if($line->image != null)
-                                    <a data-toggle="modal" data-target="#exampleModal">
-                                        <input type="hidden" id="blob" value="{{$line->image}}">
+                                    @elseif($line->image != null)
                                         <img src="data:image/png;base64,{{ chunk_split(base64_encode($line->image)) }}" alt="" class="d-block mx-auto my-4 img" id="img" height="130">
-                                    </a>
+                                    @elseif($line->body == null && $line->image == null)
+                                        <a href="#">document</a>
                                     @endif
                                 </div>
                                 <div class="chat-time">
@@ -29,12 +29,17 @@
                         <div class="chats chats-right" id="rightChatId">
                             <div class="chat-content">
                                 <div class="message-content">
+                                    @if($line->body != null)
                                     {{$line->body}}
-                                    @if($line->image != null)
+                                    @elseif($line->image != null)
                                     <a href="javascript:void(0)" onclick="openImage()">
                                         <input type="hidden" id="blob" value="{{$line->image}}">
                                         <img src="data:image/png;base64,{{ chunk_split(base64_encode($line->image)) }}" alt="" class="d-block mx-auto my-4 img" id="img" height="130">
                                     </a>
+                                    @elseif($line->body == null && $line->image == null)
+                                        <button class="btn send-btn" type="button" data-toggle="modal" data-target="#offer{{$line->id}}" data-id="{{$line->id}}">
+                                            <i class="fas fa-file"></i>
+                                        </button>
                                     @endif
                                 </div>
                                 <div class="chat-time">
@@ -67,6 +72,9 @@
                           </div>
                         </div>
                       </div>
+                      {{-- @include('messages.document') --}}
+
+                      
             
      
 

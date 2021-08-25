@@ -27,7 +27,7 @@ Route::get('register', [UserController::class, 'registerPage']);
 
 Route::post('/registerpage', [UserController::class, 'registerFromApp'])->name('user.store');
 Route::get('/loginpage', [UserController::class, 'loginFromApp'])->name('user.login');
-
+Route::post('sendOffer', [HomeController::class, 'sendOffer'])->name('send.offer');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
@@ -36,6 +36,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('conversation', [HomeController::class, 'conversationCreate'])->name('conversation.create');
     Route::post('group', [GroupController::class, 'createGroup'])->name('group.create');
     Route::post('sendMessage', [HomeController::class, 'sendMessage'])->name('send.message');
-    Route::post('sendImage', [HomeController::class, 'sendImage'])->name('image.message');
+    Route::post('sendImage', [HomeController::class, 'sendImage'])->name('send.image');
     Route::get('/logout', [UserController::class, 'logoutFromApp'])->name('logout');
 });
