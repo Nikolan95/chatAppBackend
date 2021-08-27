@@ -29,8 +29,8 @@
                                             <td>{{ $item->articleNumber }}</td>
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->amount }}</td>
-                                            <td>{{ $item->price }}</td>
-                                            <td>{{ $item->total }}</td>
+                                            <td>{{ number_format($item->price, 2, ',', '.') }} €</td>
+                                            <td>{{ number_format($item->total, 2, ',', '.') }} €</td>
                                         </tr>
                                         @endforeach
                                     </tbody>
@@ -40,7 +40,7 @@
                                             <td style="border:none"></td>
                                             <td style="border:none"></td>
                                             <td style="border:none" align="right"> Total</td>
-                                            <td></td>
+                                            <td>{{ number_format($line->offeritems->sum('total'), 2, ',', '.') }} €</td>
                                         </tr>
                                     </tfoot>
                                 </table>
