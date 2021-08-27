@@ -16,11 +16,10 @@ class UserResource extends JsonResource
     {
         $data['id']= $this->id;
 		$data['name']= $this->name;
-        $data['surname']= $this->surname;
         $data['company']= $this->company;
         $data['street']= $this->street;
         $data['city']= $this->city;
-        $data['telefon']= $this->telefon;
+        $data['phoneNumber']= $this->phoneNumber;
 		$data['email']= $this->email;
 		$data['image_url']= isset($this->picture)? 'http://192.168.0.12/atevApplication/atevChatApp/storage/app/public/'.$this->picture->path : null;
         $data['cars'] = CarResource::collection($this->cars);

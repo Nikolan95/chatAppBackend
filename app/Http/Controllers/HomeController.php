@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
-    public function dashboard()
+    public function main()
     {
         $contacts = User::all();
         $groups = Group::all();
@@ -42,7 +42,7 @@ class HomeController extends Controller
 
         //dd($conversations[0]);
 
-        return view('dashboard')
+        return view('main')
             ->with('user', $user)
             ->with('conversations', $conversations)
             ->with('contacts', $contacts)
@@ -169,7 +169,7 @@ class HomeController extends Controller
         // dd($base64);
 
         $contents = $image->openFile()->fread($image->getSize());
-       //dd($contents);
+    //    dd($contents);
 
         $message = new Message();
         $message->image = $contents;
@@ -225,7 +225,7 @@ class HomeController extends Controller
       }
 
       
-      return redirect()->route('dashboard');
+      return redirect()->route('main');
     }
     public function conversationCreate(Request $request)
     {
@@ -245,6 +245,6 @@ class HomeController extends Controller
             'read' => false,
         ]);
 
-        return redirect()->route('dashboard');
+        return redirect()->route('main');
     }
 }

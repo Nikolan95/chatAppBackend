@@ -17,18 +17,18 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->BigInteger('group_id')->unsigned()->nullable();
             $table->string('name');
-            $table->string('surname')->nullable();
             $table->string('company')->nullable();
             $table->string('street')->nullable();
             $table->string('city')->nullable();
-            $table->string('telefon')->nullable();
+            $table->string('phoneNumber')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('fcm_token')->nullable();
             $table->rememberToken();
+            $table->foreignId('current_team_id')->nullable();
+            $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();
-
+            
             $table->foreign('group_id')->references('id')->on('groups')->onDelete('set null');
         });
     }

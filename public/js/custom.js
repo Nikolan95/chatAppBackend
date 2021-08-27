@@ -44,11 +44,11 @@ $(document).ready(function () {
 
     var channel = pusher.subscribe('my-channel');
     channel.bind('my-event', function (data) {
-        //alert(JSON.stringify(data.to));
-        //alert($('#user_id').val());
+        // alert(JSON.stringify(data.to));
+        // alert($('#user_id').val());
 
         //check if send user id equals user id from pusher then refresh view
-        //alert($('#second_user_id').val() == data.to);
+        // alert($('#second_user_id').val() == data.to);
 
         if ($('#user_id').val() == data.from) {
             //alert('got message');
@@ -76,46 +76,46 @@ $(document).ready(function () {
         }
     });
 
-    $('#sendImage').on('submit', function(e) {
-        event.preventDefault();
-        user_id = $('#user_id').val();
-        reciever_id = $('#second_user_id').val();
-        conversation_id = $('#conversation_id').val();
-        read = false;
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        var image = $('.image').val();
-        var blob = new Blob([image]), 
-        slice = blob.slice(0,100, {type: "application/octet-stream"});
-        console.log(slice);
-        if (image != '' && reciever_id != '') {
-            $(this).val('');
+    // $('#sendImage').on('submit', function(e) {
+    //     event.preventDefault();
+    //     user_id = $('#user_id').val();
+    //     reciever_id = $('#second_user_id').val();
+    //     conversation_id = $('#conversation_id').val();
+    //     read = false;
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+    //     });
+    //     var image = $('.image').val();
+    //     var blob = new Blob([image]), 
+    //     slice = blob.slice(0,100, {type: "application/octet-stream"});
+    //     console.log(slice);
+    //     if (image != '' && reciever_id != '') {
+    //         $(this).val('');
 
-            var datastr = "image=" + slice + "&read=" + read + "&user_id=" + user_id + "&conversation_id=" + conversation_id + "&second_user_id=" + reciever_id;
-            console.log(datastr);
-            $.ajax({
-                type: "post",
-                url: "/sendImage",
-                data: new FormData(this),
-                processData: false,
-                contentType: false,
-                cache: false,
-                success: function (data) {
+    //         var datastr = "image=" + slice + "&read=" + read + "&user_id=" + user_id + "&conversation_id=" + conversation_id + "&second_user_id=" + reciever_id;
+    //         console.log(datastr);
+    //         $.ajax({
+    //             type: "post",
+    //             url: "/sendImage",
+    //             data: new FormData(this),
+    //             processData: false,
+    //             contentType: false,
+    //             cache: false,
+    //             success: function (data) {
 
-                },
-                error: function (jqXHR, status, err) {
+    //             },
+    //             error: function (jqXHR, status, err) {
 
-                },
-                complete: function () {
+    //             },
+    //             complete: function () {
 
-                    scrollToBottomFunc();
-                }
-            })
-        }
-    });
+    //                 scrollToBottomFunc();
+    //             }
+    //         })
+    //     }
+    // });
   
 
     $(document).on('keyup', '.input', function (e) {
@@ -129,11 +129,12 @@ $(document).ready(function () {
             }
         });
         var message = $(this).val();
-        console.log(message);
+        //console.log(message);
         if (e.keyCode == 13 && message != '' && reciever_id != '') {
             $(this).val('');
 
             var datastr = "body=" + message + "&read=" + read + "&user_id=" + user_id + "&conversation_id=" + conversation_id + "&second_user_id=" + reciever_id;
+            console.log(datastr);
             $.ajax({
                 type: "post",
                 url: "/sendMessage",

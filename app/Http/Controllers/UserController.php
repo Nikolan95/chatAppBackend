@@ -48,22 +48,18 @@ class UserController extends Controller
     {
         $request->validate([
             'name'=>'required',
-            'surname'=>'required',
             'company'=>'required',
             'street'=>'required',
             'city'=>'required',
-            'telefon'=>'required',
-            'email'=>'required|email|unique:users,email,'.auth()->id()
+            'phoneNumber'=>'required',
 
         ]);
         $user = User::find(auth()->id());
         $user->name = $request['name'];
-        $user->surname = $request['surname'];
         $user->company = $request['company'];
         $user->street = $request['street'];
         $user->city = $request['city'];
-        $user->telefon = $request['telefon'];
-        $user->email = $request['email'];
+        $user->phoneNumber = $request['phoneNumber'];
         $user->save();
         return new UserResource($user);
     }

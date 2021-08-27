@@ -23,7 +23,7 @@
                                         <th>Price</th>
                                         <th>Total</th>
                                     </thead>
-                                    <tbody id="dynamic_field">
+                                    <tbody >
                                         @foreach ($line->offeritems as $item)
                                         <tr>
                                             <td>{{ $item->articleNumber }}</td>
@@ -40,7 +40,7 @@
                                             <td style="border:none"></td>
                                             <td style="border:none"></td>
                                             <td style="border:none" align="right"> Total</td>
-                                            <td><output class="total" name="result" readonly id="result"></output></td>
+                                            <td></td>
                                         </tr>
                                     </tfoot>
                                 </table>
