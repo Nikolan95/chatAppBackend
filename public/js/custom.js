@@ -20,7 +20,7 @@ $(document).ready(function () {
         $('#susr1').val(sursId);
         $('#groupUserId').val(sursId);
 
-     
+
 
         $.ajax({
             type: "get",
@@ -76,47 +76,47 @@ $(document).ready(function () {
         }
     });
 
-    // $('#sendImage').on('submit', function(e) {
-    //     event.preventDefault();
-    //     user_id = $('#user_id').val();
-    //     reciever_id = $('#second_user_id').val();
-    //     conversation_id = $('#conversation_id').val();
-    //     read = false;
-    //     $.ajaxSetup({
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         }
-    //     });
-    //     var image = $('.image').val();
-    //     var blob = new Blob([image]), 
-    //     slice = blob.slice(0,100, {type: "application/octet-stream"});
-    //     console.log(slice);
-    //     if (image != '' && reciever_id != '') {
-    //         $(this).val('');
+     $('#sendImage').on('submit', function(e) {
+            e.preventDefault();
+         user_id = $('#user_id').val();
+         reciever_id = $('#second_user_id').val();
+         conversation_id = $('#conversation_id').val();
+         read = false;
+         $.ajaxSetup({
+             headers: {
+                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+             }
+         });
+         var image = $('.image').val();
+         //var blob = new Blob([image]),
+         slice = image;
+         console.log(slice);
+         if (image != '' && reciever_id != '') {
+             $(this).val('');
 
-    //         var datastr = "image=" + slice + "&read=" + read + "&user_id=" + user_id + "&conversation_id=" + conversation_id + "&second_user_id=" + reciever_id;
-    //         console.log(datastr);
-    //         $.ajax({
-    //             type: "post",
-    //             url: "/sendImage",
-    //             data: new FormData(this),
-    //             processData: false,
-    //             contentType: false,
-    //             cache: false,
-    //             success: function (data) {
+             var datastr = "image=" + slice + "&read=" + read + "&user_id=" + user_id + "&conversation_id=" + conversation_id + "&second_user_id=" + reciever_id;
+             console.log(datastr);
+            $.ajax({
+                 type: "post",
+                 url: "/sendImage",
+                 data: new FormData(this),
+                 processData: false,
+                 contentType: false,
+                 cache: false,
+                 success: function (data) {
 
-    //             },
-    //             error: function (jqXHR, status, err) {
+                 },
+                 error: function (jqXHR, status, err) {
 
-    //             },
-    //             complete: function () {
+                 },
+                 complete: function () {
+                        $(`#drag_files`).modal('hide');
+                     scrollToBottomFunc();
+                 }
+             })
+         }
+     });
 
-    //                 scrollToBottomFunc();
-    //             }
-    //         })
-    //     }
-    // });
-  
 
     $(document).on('keyup', '.input', function (e) {
         user_id = $('#user_id').val();

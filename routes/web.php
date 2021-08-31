@@ -44,7 +44,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
                 $conversations[$j] = $temp;
             }
         }
-    }  
+    }
     $conversations = ConversationResource::collection($conversations);
     //return $conversations[0];
     $conversations = $conversations->toArray($conversations);

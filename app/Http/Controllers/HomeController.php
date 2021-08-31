@@ -35,7 +35,7 @@ class HomeController extends Controller
 					$conversations[$j] = $temp;
 				}
 			}
-		}  
+		}
         $conversations = ConversationResource::collection($conversations);
         //return $conversations[0];
         $conversations = $conversations->toArray($conversations);
@@ -63,7 +63,7 @@ class HomeController extends Controller
 					$conversations[$j] = $temp;
 				}
 			}
-		}  
+		}
         $conversations = ConversationResource::collection($conversations);
         $conversations = $conversations->toArray($conversations);
 
@@ -121,7 +121,7 @@ class HomeController extends Controller
 
        //dd($conversation);
         //return $conversation;
-            
+
         return view('messages.conversation')->with('conversation', $conversation);
 
     }
@@ -141,7 +141,7 @@ class HomeController extends Controller
 
         $user = User::findOrFail($conversation->user_id == auth()->id() ? $conversation->second_user_id: $conversation->user_id);
 		$user->pushNotification(auth()->user()->name.' send you a message',$message->body,$message);
-  
+
 
         $options = array(
             'cluster' => 'eu',
@@ -162,17 +162,17 @@ class HomeController extends Controller
     {
         $sender = Auth()->id();
         $reciever = (int)$request->second_user_id;
-        
-        $image = $request->file('image');
-        // $imageContent = file_get_contents($image);
-        // $base64 = base64_encode($imageContent);
-        // dd($base64);
 
-        $contents = $image->openFile()->fread($image->getSize());
-    //    dd($contents);
+        $image = $request->file('image');
+        $imageContent = file_get_contents($image);
+        $base64 = base64_encode($imageContent);
+        //dd($base64);
+
+        //$contents = $image->openFile()->fread($image->getSize());
+        //dd($contents);
 
         $message = new Message();
-        $message->image = $contents;
+        $message->image = $base64;
         $message->read = false;
 		$message->user_id = auth()->id();
 		$message->conversation_id = (int)$request['conversation_id'];
@@ -201,10 +201,10 @@ class HomeController extends Controller
             'items.*.amount' => 'required',
             'items.*.price' => 'required',
       ]);
-     
+
       $message = new Message;
       $offerItem = new Offeritem;
-      
+
       $message->read = false;
       $message->user_id = $request->user_id;
       $message->conversation_id = $request->conversation_id;
@@ -224,7 +224,7 @@ class HomeController extends Controller
           }
       }
 
-      
+
       return redirect()->route('main');
     }
     public function conversationCreate(Request $request)

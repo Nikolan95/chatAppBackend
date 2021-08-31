@@ -32,9 +32,9 @@
                                     @if($line->body != null)
                                     {{$line->body}}
                                     @elseif($line->image != null)
-                                    <a href="javascript:void(0)" onclick="openImage()">
+                                    <a href="javascript:void(0)" onclick="openImage('{{$line->image}}')">
                                         <input type="hidden" id="blob" value="{{$line->image}}">
-                                        <img src="data:image/png;base64,{{ chunk_split(base64_encode($line->image)) }}" alt="" class="d-block mx-auto my-4 img" id="img" height="130">
+                                        <img src="data:image/png;base64,{{ chunk_split($line->image) }}" alt="" class="d-block mx-auto my-4 img" id="img" height="130">
                                     </a>
                                     @elseif($line->body == null && $line->image == null)
                                         <button class="btn send-btn" type="button" data-toggle="modal" data-target="#offer{{$line->id}}" data-id="{{$line->id}}">
@@ -74,7 +74,7 @@
                       </div>
                       @include('messages.document')
 
-                      
-            
-     
+
+
+
 

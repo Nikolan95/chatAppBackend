@@ -46,7 +46,7 @@
                         <select class="form-control" name="contact" id="contact">
                             @foreach($contacts as $contact)
                                 <option value="{{ $contact->id }}"> {{ $contact->name }} </option>
-                            @endforeach    
+                            @endforeach
                         <select>
                     </div>
                     <div class="form-group">
@@ -59,7 +59,7 @@
                         </button>
                     </div>
                 </form>
-            </div>       
+            </div>
         </div>
     </div>
 </div>
@@ -85,7 +85,7 @@
                         <select class="form-control" name="contact" id="contact">
                             @foreach($contacts as $contact)
                                 <option value="{{ $contact->id }}"> {{ $contact->name }} </option>
-                            @endforeach    
+                            @endforeach
                         <select>
                             <span class="text-danger error-text contact_error"></span>
                     </div>
@@ -95,7 +95,7 @@
                             <option value=""> </option>
                             @foreach($groups as $group)
                                 <option value="{{ $group->id }}"> {{ $group->name }} </option>
-                            @endforeach    
+                            @endforeach
                         <select>
                         <span class="text-danger error-text group_error"></span>
                     </div>
@@ -110,7 +110,7 @@
                         </button>
                     </div>
                 </form>
-            </div>       
+            </div>
         </div>
     </div>
 </div>
@@ -262,7 +262,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-sm-12">
-                                <div class="panel-body">           				
+                                <div class="panel-body">
                                     <table class="table table-bordered">
                                         <thead>
                                             <th>Article number</th>
@@ -298,7 +298,7 @@
                                 </div>
                             </div>
                         </div>    <!-- container -->
-                    </div>   
+                    </div>
                     <div class="text-center mt-0">
                         <button class="btn newgroup_create m-0" type="submit">Add to upload</button>
                     </div>

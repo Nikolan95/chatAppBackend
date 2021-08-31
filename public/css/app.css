@@ -233,6 +233,7 @@ See: https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d4
 	box-shadow: none;
 }
 
+
 /**
 Remove the padding so developers are not caught out when they zero out 'fieldset' elements in all browsers.
 */
@@ -511,14 +512,14 @@ samp {
  *    CSS Remedy, with `svg` added as well.
  *
  *    https://github.com/mozdevs/cssremedy/issues/14
- * 
+ *
  * 2. Add `vertical-align: middle` to align replaced elements more
  *    sensibly by default when overriding `display` by adding a
  *    utility like `inline`.
  *
  *    This can trigger a poorly considered linting error in some
  *    tools but is included by design.
- * 
+ *
  *    https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210
  */
 
