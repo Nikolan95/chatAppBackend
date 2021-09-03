@@ -19,9 +19,8 @@ class MessageController extends Controller
      */
     public function store(storeMessageRequest $request)
     {
-        
-
         $message = new Message();
+        $message->image = $request['image'];
 		$message->body = $request['body'];
 		$message->read = false;
 		$message->user_id = auth()->id();
@@ -41,14 +40,14 @@ class MessageController extends Controller
         }
 
 		$user = User::findOrFail($conversation->user_id == auth()->id() ? $conversation->second_user_id: $conversation->user_id);
-		$user->pushNotification(auth()->user()->name.' send you a message',$message->body,$message); 
+		$user->pushNotification(auth()->user()->name.' send you a message',$message->body,$message);
 
 
         $options = array(
             'cluster' => 'eu',
             'useTLS' => true
         );
-        
+
         $pusher = new Pusher(
             env('PUSHER_APP_KEY'),
             env('PUSHER_APP_SECRET'),
