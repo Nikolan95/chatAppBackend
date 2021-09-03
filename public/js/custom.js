@@ -11,7 +11,6 @@ $(document).ready(function () {
         $('.chatName').html(chatName +'    '+ car);
         $('.profile-name').html(chatName);
         $('.Slika img').show();
-
         conversationId = $(this).attr('id');
         sursId = $(this).attr('itemid');
         $('#cnv').val(conversationId);
@@ -19,6 +18,23 @@ $(document).ready(function () {
         $('#cnv1').val(conversationId);
         $('#susr1').val(sursId);
         $('#groupUserId').val(sursId);
+        $('#target').attr('data-target', '#offer_form'+conversationId);
+        $('#target2').attr('data-target', '#offer_form'+conversationId);
+
+
+        // $("#documentModal").on("click", function(e) { 
+        //     e.preventDefault();
+        //     alert('klik');
+        //     // $('.offerModal').modal('show');
+        //     // $('.offerModal').on('shown.bs.modal', function() {
+        //     //     $('.offerModal').find('#billing_adress').html('<strong class="font-14">Billed To :</strong><br>'+
+        //     //     'vfdv<br>'+
+        //     //     '795 Folsom Ave<br>'+
+        //     //     'San Francisco, CA 94107<br>'+
+        //     //     '<abbr title="Phone">P:</abbr> (123) 456-7890');
+        //     // });
+        // });
+        
 
 
 
@@ -158,3 +174,16 @@ function scrollToBottomFunc() {
         scrollTop: $('.chat-body').get(0).scrollHeight
     }, 50);
 }
+// function openModal(id){
+//     //alert(id);
+//     //alert(kesa);
+//      $('#offer'+id).modal('show');
+//             // $('#offer'+id).on('shown.bs.modal', function() {
+//             //     $('#offer'+id).find('#billing_adress').html('<strong class="font-14">Billed To :</strong><br>'+
+//             //     'vfdv<br>'+
+//             //     '795 Folsom Ave<br>'+
+//             //     'San Francisco, CA 94107<br>'+
+//             //     '<abbr title="Phone">P:</abbr> (123) 456-7890');
+//             // });
+// }
+

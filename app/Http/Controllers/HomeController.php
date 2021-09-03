@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Conversation;
 use App\Models\Message;
 use App\Models\Offeritem;
+use App\Models\TermsAndConditions;
 use App\Models\User;
 use App\Models\Group;
 use App\Events\Message as Message2;
@@ -24,7 +25,7 @@ class HomeController extends Controller
         $contacts = User::all();
         $groups = Group::all();
         $user =  new UserResourceLaravel(auth()->user());
-        $conversations = Conversation::with('messages')->with('messages.offeritems')->where('user_id',auth()->user()->id)->orWhere('second_user_id',auth()->user()->id)->with('car')->orderBy('updated_at', 'desc')->get();
+        $conversations = Conversation::with('messages')->with('messages.offeritems')->with('messages.termsandconditions')->where('user_id',auth()->user()->id)->orWhere('second_user_id',auth()->user()->id)->with('car')->orderBy('updated_at', 'desc')->get();
 		$count = count($conversations);
 		// $array = [];
 		for ($i = 0; $i < $count; $i++) {
@@ -96,7 +97,7 @@ class HomeController extends Controller
     public function getMessages($conversation_id)
     {
         //$conversation = Conversation::where('id',$conversation_id)->get();
-        $conversation = Conversation::with('messages')->with('messages.offeritems')->where('id',$conversation_id)->get();
+        $conversation = Conversation::with('messages')->with('messages.offeritems')->with('messages.termsandconditions')->where('id',$conversation_id)->get();
         // $conversation = Conversation::whereHas('messages', function($q){
         //     $q->with('offeritems');
         // })->get();
@@ -204,24 +205,34 @@ class HomeController extends Controller
 
       $message = new Message;
       $offerItem = new Offeritem;
+      $termsAndConditions = new TermsAndConditions;
 
       $message->read = false;
       $message->user_id = $request->user_id;
       $message->conversation_id = $request->conversation_id;
 
       if ($message->save()) {
-          $id = $message->id;
-          foreach ($request->items as $item) {
-              $data = [
-                 'message_id' => $id,
-                 'articleNumber' => $item['article'],
-                 'name' => $item['name'],
-                 'amount' => $item['amount'],
-                 'price' => $item['price'],
-                 'total' => $item['amount']*$item['price']
-              ];
-              Offeritem::insert($data);
-          }
+        $id = $message->id;
+        foreach ($request->items as $item) {
+            $data = [
+                'message_id' => $id,
+                'articleNumber' => $item['article'],
+                'name' => $item['name'],
+                'amount' => $item['amount'],
+                'price' => $item['price'],
+                'total' => $item['amount']*$item['price']
+            ];
+            Offeritem::insert($data);
+        }
+        foreach($request->terms as $term){
+            if($term['body'] != null){
+                $data = [
+                    'message_id' => $id,
+                    'body' => $term['body']
+                ];
+                TermsAndConditions::insert($data);
+            }
+        }
       }
 
 

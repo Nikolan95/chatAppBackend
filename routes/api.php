@@ -59,7 +59,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('conversations', [ConversationController::class, 'store']);
         Route::post('cars', [CarController::class, 'store']);
         Route::post('conversations/read', [ConversationController::class, 'messageSeen']);
-        Route::post('messages', [MessageController::class, 'store']);  
+        Route::post('messages', [MessageController::class, 'store']);
+        Route::put('messages/update', [MessageController::class, 'update']);   
         Route::post('upload', [PictureController::class, 'store']);
         Route::post('update', [UserController::class, 'update']);
         Route::post('fcm', [UserController::class, 'fcmToken']);

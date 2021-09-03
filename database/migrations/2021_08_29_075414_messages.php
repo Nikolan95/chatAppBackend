@@ -25,7 +25,7 @@ class Messages extends Migration
             $table->foreign('conversation_id')->references('id')->on('conversations')->onDelete('cascade');
 
         });
-        DB::statement("ALTER TABLE messages ADD image LONGBLOB");
+        DB::statement("ALTER TABLE messages ADD image LONGTEXT");
     }
 
     /**

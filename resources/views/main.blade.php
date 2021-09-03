@@ -19,6 +19,15 @@
 	
     <!-- Custom scroll CSS -->
     <link rel="stylesheet" href="{{asset('plugins/mcustomscroll/jquery.mCustomScrollbar.css')}}">
+
+
+            <!-- METRICA css -->
+            <link href="{{asset('metrica/css/bootstrap.min.css" rel="stylesheet" type="text/css')}}" />
+            <link href="{{asset('metrica/css/jquery-ui.min.css" rel="stylesheet')}}">
+            <link href="{{asset('metrica/css/icons.min.css" rel="stylesheet" type="text/css')}}" />
+            <link href="{{asset('metrica/css/metisMenu.min.css" rel="stylesheet" type="text/css')}}" />
+            <link href="{{asset('metrica/css/app.css" rel="stylesheet" type="text/css')}}" />
+            {{-- end metrica --}}
 	
     <!-- App styles -->
     <link rel="stylesheet" href="{{asset('css/appold.css')}}">
@@ -173,7 +182,7 @@
                             <button class="btn" type="button" data-toggle="modal" data-target="#drag_files">
                                 <i class="fas fa-paperclip"></i>
                             </button>
-                            <button class="btn send-btn" type="button" data-toggle="modal" data-target="#offer_form">
+                            <button class="btn send-btn" type="button" data-toggle="modal" data-target="#offer_form" id="target">
                                 <i class="fas fa-file"></i>
                             </button>
                             &nbsp;&nbsp;
@@ -304,6 +313,20 @@
     <script src="{{asset('/js/accounting.js')}}"></script>
 
     <script src="{{asset('/js/offerform.js')}}"></script>
+
+            {{-- METRICA --}}
+            <script src="{{asset('metrica/js/jquery.min.js')}}"></script>
+            <script src="{{asset('metrica/js/jquery-ui.min.js')}}"></script>
+            <script src="{{asset('metrica/js/bootstrap.bundle.min.js')}}"></script>
+            <script src="{{asset('metrica/js/metismenu.min.js')}}"></script>
+            <script src="{{asset('metrica/js/waves.js')}}"></script>
+            <script src="{{asset('metrica/js/feather.min.js')}}"></script>
+            <script src="{{asset('metrica/js/jquery.slimscroll.min.js')}}"></script>
+            <script src="{{asset('metrica/js/plugins/apexcharts/apexcharts.min.js')}}"></script> 
+            
+            <!-- App js -->
+            <script src="{{asset('metrica/js/app.js')}}"></script>
+            {{-- endmetrica --}}
 	
 	<!-- Custom JS -->
     <script src="{{asset('/js/script.js')}}"></script>

@@ -94,7 +94,18 @@ class MessageController extends Controller
      */
     public function update(Request $request, Message $message)
     {
-        //
+        $values = [
+            'id' => $request['id'],
+            'accept_offer' =>   $request['accept_offer'],
+        ];
+        //return $values;
+
+         $query = Message::where('id', $request->id)->update($values);
+
+        if($query){
+            $variable = Message::with('offeritems')->where('id', $request->id)->get();
+            return response()->json($variable);
+        }
     }
 
     /**

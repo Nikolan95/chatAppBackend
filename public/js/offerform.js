@@ -37,6 +37,24 @@ $(document).ready(function(){
     })
      
     $('#result').html(accounting.formatMoney(sum,"", 2, ".", ",")+' €');
+    $('#result2').html(accounting.formatMoney(sum,"", 2, ".", ",")+' €');
         console.log(sum);
-    }; 
+    };
+    
+    
+
+    var x = 0;
+    $('#addRowTerms').click(function(){
+        x++;
+        $('#terms_field').append('<tr id="row'+x+'">'+
+            '<td style="width: 96.5%"><input type="text" name="terms['+x+'][body]"  class="form-control body"> </td>'+
+            '<td><button name="remove" id="'+x+'" class="btn btn-danger btn_remove">X</button></td>'+
+            '</tr>'
+        )
+    });
+
+    $(document).on('click', '.btn_remove', function(){
+        var button_id = $(this).attr("id");
+        $("#row" +button_id+"").remove();
+    });
 });

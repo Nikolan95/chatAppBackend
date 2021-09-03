@@ -147,7 +147,7 @@
                                 <button class="btn" type="button" data-toggle="modal" data-target="#drag_files">
                                     <i class="fas fa-paperclip"></i>
                                 </button>
-                                <button class="btn send-btn" type="button" data-toggle="modal" data-target="#offer_form">
+                                <button class="btn send-btn" type="button" data-toggle="modal" data-target="#offer_form" id="target2">
                                     <i class="fas fa-file"></i>
                                 </button>
                                 &nbsp;&nbsp;

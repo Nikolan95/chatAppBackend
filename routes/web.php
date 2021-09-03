@@ -33,7 +33,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $contacts = User::all();
     $groups = Group::all();
     $user =  new UserResourceLaravel(auth()->user());
-    $conversations = Conversation::where('user_id',auth()->user()->id)->orWhere('second_user_id',auth()->user()->id)->with('car')->orderBy('updated_at', 'desc')->get();
+    $conversations = Conversation::with('messages')->with('messages.offeritems')->with('messages.termsandconditions')->where('user_id',auth()->user()->id)->orWhere('second_user_id',auth()->user()->id)->with('car')->orderBy('updated_at', 'desc')->get();
     $count = count($conversations);
     // $array = [];
     for ($i = 0; $i < $count; $i++) {

@@ -19,4 +19,8 @@ class Message extends Model
     {
         return $this->hasMany(Offeritem::class);
     }
+    public function termsAndConditions()
+    {
+        return $this->hasMany(termsAndConditions::class);
+    }
 }
