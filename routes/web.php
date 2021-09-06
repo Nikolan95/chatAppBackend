@@ -26,10 +26,14 @@ use App\Http\Resources\ConversationResource;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/dashboard');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/chat', function () {
     $contacts = User::all();
     $groups = Group::all();
     $user =  new UserResourceLaravel(auth()->user());
@@ -49,7 +53,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     //return $conversations[0];
     $conversations = $conversations->toArray($conversations);
         //return $conversations;
-    return view('dashboard')
+    return view('chat')
     ->with('user', $user)
     ->with('conversations', $conversations)
     ->with('contacts', $contacts)
@@ -62,10 +66,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     // Route::post('sendMessage', [HomeController::class, 'sendMessage'])->name('send.message');
     // Route::post('sendImage', [HomeController::class, 'sendImage'])->name('send.image');
     // Route::get('/logout', [UserController::class, 'logoutFromApp'])->name('logout');
-})->name('dashboard');
+})->name('chat');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('main', [HomeController::class, 'main'])->name('main');
     Route::get('/conversation/{id}', [HomeController::class, 'conversationMessages'])->name('conversation.messages');
     Route::get('messages/{conversation_id}', [HomeController::class, 'getMessages'])->name('messages');
     Route::post('conversation', [HomeController::class, 'conversationCreate'])->name('conversation.create');

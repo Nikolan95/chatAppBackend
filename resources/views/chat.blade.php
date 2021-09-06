@@ -81,10 +81,10 @@
                     </div>
                     <ul class="nav nav-tabs chat-tabs mt-4">
                         <li class="nav-item">
-                            <a class="nav-link active" id="plaudern">Plaudern</a>
+                            <a class="nav-link active" id="plaudern">Kunden</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="gruppe">Gruppe</a>
+                            <a class="nav-link" id="gruppe">Gruppen</a>
                         </li>
                     </ul>
                     <button type="button" class="float-right btn btn-circle btn-sm header_button startConversation"
@@ -195,7 +195,7 @@
             <div class="chat-footer">
                 <meta name="csrf-token" content="{{ csrf_token() }}">
                 <div style="display: flex">
-                    <input type="text" class="form-control chat_form input" placeholder="Write a message." name="body"
+                    <input type="text" class="form-control chat_form input" placeholder="Nachricht verfassen ..." name="body"
                            id="body" class="submit"/>
 
                     <button class="btn" type="button" data-toggle="modal" data-target="#drag_files">
@@ -228,7 +228,7 @@
                     <div class="pl-4 pr-4 mt-0 right_sidebar_logo">
                         <div class="text-center mb-3">
                             <figure class="avatar avatar-xl mb-3">
-                                <img src="{{asset('images/avatar-2.jpg')}}" class="rounded-circle" alt="image">
+                                <img src="{{asset('images/profile.png')}}" class="rounded-circle" alt="image">
                             </figure>
                             <h5 class="profile-name"></h5>
                         </div>
@@ -236,7 +236,7 @@
 
                             <div class="accordion-col">
                                 <div class="accordion-title">
-                                    <h6 class="primary-title">Media (31) <i
+                                    <h6 class="primary-title">Medien (4) <i
                                             class="fas fa-chevron-right float-right"></i></h6>
                                 </div>
                                 <div class="accordion-content">
@@ -253,37 +253,39 @@
                                     </div>
                                 </div>
                                 <div class="accordion-title">
-                                    <h6 class="primary-title">About and phone number <i
+                                    <h6 class="primary-title">Kunde<i
                                             class="fas fa-chevron-right float-right"></i></h6>
                                 </div>
                                 <div class="accordion-content">
-                                    <p class="text-muted text-center mt-1">Help people to build websites and apps + grow
-                                        awareness in social media 🔥</p>
-                                    <div class="mt-2 text-center">
-                                        <h6>Phone: <span class="text-muted ml-2">+(33 1) 45 55 01 10</span></h6>
+                                    <div class="mt-2 text-left">
+                                        <h6>Name:<span class="text-muted ml-2"> Max Mustermann </span></h6>
+                                        <h6>E-Mail:<span class="text-muted ml-2">max.mustermann@gmx.at</span></h6>
+                                        <h6>Adresse:<span class="text-muted ml-2">Am Bindermichl 35, 4020 Linz</span></h6>
+                                        <h6>Telefonnummer:<span class="text-muted ml-2">+(33 1) 45 55 01 10</span></h6>
                                     </div>
                                 </div>
                                 <div class="accordion-title">
-                                    <h6 class="primary-title">Settings <i class="fas fa-chevron-right float-right"></i>
+                                    <h6 class="primary-title">Einstellungen <i class="fas fa-chevron-right float-right"></i>
                                     </h6>
                                 </div>
                                 <div class="accordion-content">
                                     <ul class="contact-action">
                                         <li class="block-user mt-1">
-                                            <a href=""><i class="fas fa-ban mr-2 text-muted"></i>Block</a>
+                                            <a href=""><i class="fas fa-ban mr-2 text-muted"></i>Kunden blockieren</a>
                                         </li>
-                                        <li class="report-contact">
-                                            <a href=""><i class="fas fa-thumbs-down mr-2"></i> Report Contact</a>
+                                        <li class="archieve-chat">
+                                            <a href=""><i class="fas fa-archive mr-2"></i>Chat archivieren</a>
                                         </li>
                                         <li class="delete-chat">
-                                            <a href=""><i class="fas fa-trash-alt mr-2"></i> Delete Chat</a>
+                                            <a href=""><i class="fas fa-trash-alt mr-2"></i>Chat löschen</a>
                                         </li>
                                     </ul>
+                                    <br>
                                     <form action="{{ route('group.create') }}" method="POST" id="creategroups">
                                         @csrf
                                         <input type="hidden" id="groupUserId" name="contact">
                                         <div class="form-group">
-                                            <label>wähle die Gruppe</label>
+                                            <label>Kunden zu Gruppe hinzufügen</label>
                                             <select class="form-control" name="group" id="group">
                                                 <option value=""></option>
                                                 @foreach($groups as $group)
@@ -294,7 +296,7 @@
                                         </div>
                                         <div class="form-row profile_form mt-3 mb-1">
                                             <button type="submit" class="btn btn-block newgroup_create mb-0">
-                                                Schaffen
+                                                Hinzufügen
                                             </button>
                                         </div>
                                     </form>
