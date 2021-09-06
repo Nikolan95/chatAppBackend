@@ -230,7 +230,7 @@
                             <figure class="avatar avatar-xl mb-3">
                                 <img src="{{asset('images/profile.png')}}" class="rounded-circle" alt="image">
                             </figure>
-                            <h5 class="profile-name"></h5>
+                            <h5 class="profile-name">Max Mustermann</h5>
                         </div>
                         <div>
 

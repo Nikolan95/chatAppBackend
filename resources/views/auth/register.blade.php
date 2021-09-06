@@ -1,7 +1,9 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+            <a href="index.html">
+                <img src="{{asset('images/logo.png')}}">
+            </a>
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />
@@ -57,9 +59,9 @@
                             <x-jet-checkbox name="terms" id="terms"/>
 
                             <div class="ml-2">
-                                {!! __('I agree to the :terms_of_service and :privacy_policy', [
-                                        'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900">'.__('Terms of Service').'</a>',
-                                        'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 hover:text-gray-900">'.__('Privacy Policy').'</a>',
+                                {!! __('Ich stimme den :Nutzungsbedingungen und der :Datenschutzrichtlinie zu.', [
+                                        'Nutzungsbedingungen' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900">'.__('Nutzungsbedingungen').'</a>',
+                                        'Datenschutzrichtlinie' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 hover:text-gray-900">'.__('Datenschutzrichtlinie').'</a>',
                                 ]) !!}
                             </div>
                         </div>
@@ -69,11 +71,11 @@
 
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
+                    {{ __('Schon registriert?') }}
                 </a>
 
                 <x-jet-button class="ml-4">
-                    {{ __('Register') }}
+                    {{ __('Registrieren') }}
                 </x-jet-button>
             </div>
         </form>
