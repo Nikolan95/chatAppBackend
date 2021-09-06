@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dreams Chat - Html Template</title>
-
+    <title>ATEV</title>
     <!-- Favicon -->
     <link rel="icon" href="{{asset('images/favicon.png')}}">
 
@@ -27,10 +26,42 @@
     <link href="{{asset('metrica/css/icons.min.css" rel="stylesheet" type="text/css')}}"/>
     <link href="{{asset('metrica/css/metisMenu.min.css" rel="stylesheet" type="text/css')}}"/>
     <link href="{{asset('metrica/css/app.css" rel="stylesheet" type="text/css')}}"/>
-    {{-- end metrica --}}
 
     <!-- App styles -->
     <link rel="stylesheet" href="{{asset('css/appold.css')}}">
+
+    <!-- /Main Wrapper -->
+    <!-- jQuery -->
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+
+    <!-- Bootstrap Core JS -->
+    <script src="{{asset('/js/popper.min.js')}}"></script>
+    <script src="{{asset('/js/bootstrap.min.js')}}"></script>
+
+    <!-- Custom Scroll JS -->
+    <script src="{{asset('/js/jquery.nicescroll.min.js')}}"></script>
+    <script src="{{asset('/plugins/mcustomscroll/jquery.mCustomScrollbar.js')}}"></script>
+
+    <script src="{{asset('/js/custom.js')}}"></script>
+
+    <script src="{{asset('/js/images.js')}}"></script>
+
+    <script src="{{asset('/js/chatgroup.js')}}"></script>
+
+    <script src="{{asset('/js/accounting.js')}}"></script>
+
+    <script src="{{asset('/js/offerform.js')}}"></script>
+
+    <script src="{{asset('metrica/js/jquery.min.js')}}"></script>
+    <script src="{{asset('metrica/js/jquery-ui.min.js')}}"></script>
+    <script src="{{asset('metrica/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('metrica/js/metismenu.min.js')}}"></script>
+    <script src="{{asset('metrica/js/waves.js')}}"></script>
+    <script src="{{asset('metrica/js/feather.min.js')}}"></script>
+    <script src="{{asset('metrica/js/jquery.slimscroll.min.js')}}"></script>
+    <script src="{{asset('metrica/js/plugins/apexcharts/apexcharts.min.js')}}"></script>
+    <script src="{{asset('metrica/js/app.js')}}"></script>
+    <script src="{{asset('/js/script.js')}}"></script>
 
 </head>
 
@@ -315,47 +346,6 @@
 
 </div>
 @include('modals')
-<!-- /Main Wrapper -->
-
-<!-- jQuery -->
-<script src="{{asset("
-/js/jquery-3.4.1.min.js")}}"></script>
-<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-
-<!-- Bootstrap Core JS -->
-<script src="{{asset('/js/popper.min.js')}}"></script>
-<script src="{{asset('/js/bootstrap.min.js')}}"></script>
-
-<!-- Custom Scroll JS -->
-<script src="{{asset('/js/jquery.nicescroll.min.js')}}"></script>
-<script src="{{asset('/plugins/mcustomscroll/jquery.mCustomScrollbar.js')}}"></script>
-
-<script src="{{asset('/js/custom.js')}}"></script>
-
-<script src="{{asset('/js/images.js')}}"></script>
-
-<script src="{{asset('/js/chatgroup.js')}}"></script>
-
-<script src="{{asset('/js/accounting.js')}}"></script>
-
-<script src="{{asset('/js/offerform.js')}}"></script>
-
-{{-- METRICA --}}
-<script src="{{asset('metrica/js/jquery.min.js')}}"></script>
-<script src="{{asset('metrica/js/jquery-ui.min.js')}}"></script>
-<script src="{{asset('metrica/js/bootstrap.bundle.min.js')}}"></script>
-<script src="{{asset('metrica/js/metismenu.min.js')}}"></script>
-<script src="{{asset('metrica/js/waves.js')}}"></script>
-<script src="{{asset('metrica/js/feather.min.js')}}"></script>
-<script src="{{asset('metrica/js/jquery.slimscroll.min.js')}}"></script>
-<script src="{{asset('metrica/js/plugins/apexcharts/apexcharts.min.js')}}"></script>
-
-<!-- App js -->
-<script src="{{asset('metrica/js/app.js')}}"></script>
-{{-- endmetrica --}}
-
-<!-- Custom JS -->
-<script src="{{asset('/js/script.js')}}"></script>
 
 
 </body>

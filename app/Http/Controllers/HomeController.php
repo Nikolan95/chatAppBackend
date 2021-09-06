@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
-    public function main()
+    public function chat()
     {
         $contacts = User::all();
         $groups = Group::all();
@@ -43,7 +43,7 @@ class HomeController extends Controller
 
         //dd($conversations[0]);
 
-        return view('main')
+        return view('chat')
             ->with('user', $user)
             ->with('conversations', $conversations)
             ->with('contacts', $contacts)
@@ -236,7 +236,7 @@ class HomeController extends Controller
       }
 
 
-      return redirect()->route('main');
+      return redirect()->route('chat');
     }
     public function conversationCreate(Request $request)
     {
@@ -256,6 +256,6 @@ class HomeController extends Controller
             'read' => false,
         ]);
 
-        return redirect()->route('main');
+        return redirect()->route('chat');
     }
 }
