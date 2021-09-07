@@ -179,6 +179,11 @@ class HomeController extends Controller
 		$message->conversation_id = (int)$request['conversation_id'];
         $message->save();
 
+        $conversation = $message->conversation;
+
+        $user = User::findOrFail($conversation->user_id == auth()->id() ? $conversation->second_user_id: $conversation->user_id);
+		$user->pushNotification(auth()->user()->name.' send you a message',$message->image,$message);
+
         $options = array(
             'cluster' => 'eu',
             'useTLS' => true
