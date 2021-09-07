@@ -55,6 +55,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected function defaultProfilePhotoUrl()
+    {
+        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=F2BB46&background=FFF2D3';
+    }
+
     /**
      * The accessors to append to the model's array form.
      *
@@ -83,7 +88,7 @@ class User extends Authenticatable
     public function pushNotification($title,$body,$message){
 
 		$token = $this->fcm_token;
-		
+
 
 		if($token == null) return;
 
@@ -94,7 +99,7 @@ class User extends Authenticatable
 		$data['data']['click_action'] = 'FLUTTER_NOTIFICATION_CLICK';
 		$data['data']['message']=$message;
 		$data['to'] = $token;
-		
+
 
 		$http = new \GuzzleHttp\Client(['headers'=>[
 			'Centent-Type'=>'application/json',
@@ -113,7 +118,7 @@ class User extends Authenticatable
                 return response()->json('Your credentials are incorrect. Please try again', $e->getCode());
             }
             return response()->json('Something went wrong on the server.', $e->getCode());
-        }        
+        }
 
 	}
 }

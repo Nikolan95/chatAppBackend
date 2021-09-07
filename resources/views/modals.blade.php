@@ -31,7 +31,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
-                    Neue Konversation
+                    Neuer Chat
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <i class="fas fa-times close_icon"></i>
@@ -42,7 +42,7 @@
                 <form action="{{ route('conversation.create') }}" method="POST" id="createconversation">
                     @csrf
                     <div class="form-group">
-                        <label>Benutzer</label>
+                        <label>Benutzer auswählen</label>
                         <select class="form-control" name="contact" id="contact">
                             @foreach($contacts as $contact)
                                 <option value="{{ $contact->id }}"> {{ $contact->name }} </option>
@@ -55,7 +55,7 @@
                     </div>
                     <div class="form-row profile_form mt-3 mb-1">
                         <button type="submit" class="btn btn-block newgroup_create mb-0">
-                            Schaffen
+                            Chat starten
                         </button>
                     </div>
                 </form>
@@ -324,21 +324,21 @@
                             <input class="fa fa-cloud-upload fa-2x" type="hidden" id="cnv1" name="conversation_id" value="">
                             <input class="fa fa-cloud-upload fa-2x" type="hidden" id="susr1" name="second_user_id" value="">
                             <div class="card">
-                                <div class="card-body invoice-head"> 
+                                <div class="card-body invoice-head">
                                     <div class="row">
-                                        <div class="col-md-4 align-self-center">                                                
+                                        <div class="col-md-4 align-self-center">
                                             <img src="{{('images/logo.png')}}" alt="logo-small" class="logo-sm mr-2" height="35">
-                                            <p class="mt-2 mb-0 text-muted">If account is not paid within 7 days the credits details supplied as confirmation.</p>                                             
-                                        </div><!--end col-->    
+                                            <p class="mt-2 mb-0 text-muted">If account is not paid within 7 days the credits details supplied as confirmation.</p>
+                                        </div><!--end col-->
                                         <div class="col-md-8">
-                                                
-                                            <ul class="list-inline mb-0 contact-detail float-right">                                                   
+
+                                            <ul class="list-inline mb-0 contact-detail float-right">
                                                 <li class="list-inline-item">
                                                     <div class="pl-3">
                                                         <i class="mdi mdi-web"></i>
                                                         <p class="text-muted mb-0">www.abcdefghijklmno.com</p>
                                                         <p class="text-muted mb-0">www.qrstuvwxyz.com</p>
-                                                    </div>                                                
+                                                    </div>
                                                 </li>
                                                 <li class="list-inline-item">
                                                     <div class="pl-3">
@@ -355,8 +355,8 @@
                                                     </div>
                                                 </li>
                                             </ul>
-                                        </div><!--end col-->    
-                                    </div><!--end row-->     
+                                        </div><!--end col-->
+                                    </div><!--end row-->
                                 </div><!--end card-body-->
                                 <div class="card-body">
                                     <div class="row">
@@ -365,18 +365,18 @@
                                                 <h6 class="mb-0"><b>Order Date :</b> {{ \Carbon\Carbon::now()->format('d/m/Y')}}</h6>
                                                 <h6><b>Order ID :</b> # 23654789</h6>
                                             </div>
-                                        </div><!--end col--> 
-                                        <div class="col-md-3">                                            
+                                        </div><!--end col-->
+                                        <div class="col-md-3">
                                             <div class="float-left">
                                                 <address class="font-13">
                                                     <strong class="font-14">Billed To :</strong><br>
                                                         {{$line['user']->name}}<br>
                                                         {{$line['user']->street}}<br>
                                                         {{$line['user']->city}}<br>
-                                                        <abbr title="Phone">Tel: {{$line['user']->phoneNumber}}</abbr> 
+                                                        <abbr title="Phone">Tel: {{$line['user']->phoneNumber}}</abbr>
                                                 </address>
                                             </div>
-                                        </div><!--end col--> 
+                                        </div><!--end col-->
                                         <div class="col-md-3">
                                             <div class="">
                                                 <address class="font-13">
@@ -384,10 +384,10 @@
                                                     {{$line['user']->name}}<br>
                                                     {{$line['user']->street}}<br>
                                                     {{$line['user']->city}}<br>
-                                                    <abbr title="Phone">Tel: {{$line['user']->phoneNumber}}</abbr> 
+                                                    <abbr title="Phone">Tel: {{$line['user']->phoneNumber}}</abbr>
                                                 </address>
                                             </div>
-                                        </div> <!--end col-->                                              
+                                        </div> <!--end col-->
                                     </div><!--end row-->
 
                                     <div class="row">
@@ -399,12 +399,12 @@
                                                             <th>Artikel Nr</th>
                                                             <th>Name</th>
                                                             <th>Qty</th>
-                                                            <th>Price</th> 
+                                                            <th>Price</th>
                                                             <th>Total</th>
                                                             <th style="text-align:center;background:#eee"><a href="#" class="addRow" id="addRow"><i class="fas fa-plus"></i></a></th>
                                                         </tr><!--end tr-->
                                                     </thead>
-                                                    <tbody id="dynamic_field">       
+                                                    <tbody id="dynamic_field">
                                                         <tr>
                                                             <td><input type="text" name="items[0][article]"  class="form-control desc"></td>
                                                             <td><input type="text" name="items[0][name]"  class="form-control desc"></td>
@@ -414,9 +414,9 @@
                                                                 <input type="hidden" class="totalFlat" name="items[0][totalFlat]" id="totalFlat"></td>
                                                             <td></td>
                                                         </tr><!--end tr-->
-                                                    </tbody>        
-                                                    <tfoot>                                                        
-                                                        <tr> 
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
                                                             <td class="border-0"></td>
                                                             <td colspan="2" class="border-0"></td>
                                                             <td class="border-0 font-14 text-dark"><b>Sub Total</b></td>
@@ -424,29 +424,29 @@
                                                         </tr><!--end tr-->
                                                         <tr>
                                                             <th class="border-0"></th>
-                                                            <th colspan="2" class="border-0"></th>                                                        
+                                                            <th colspan="2" class="border-0"></th>
                                                             <td class="border-0 font-14 text-dark"><b>Tax Rate</b></td>
                                                             <td class="border-0 font-14 text-dark"><b>$0.00%</b></td>
                                                         </tr><!--end tr-->
                                                         <tr class="bg-black">
                                                             <th class="border-0"></th>
-                                                            <th colspan="2" class="border-0"></th>                                                        
+                                                            <th colspan="2" class="border-0"></th>
                                                             <td class="border-0 font-14"><b>Total</b></td>
                                                             <td class="border-0 font-14"><b><output class="total" name="result" readonly id="result2"></b></td>
                                                         </tr><!--end tr-->
                                                     </tfoot>
                                                 </table><!--end table-->
-                                            </div>  <!--end /div-->                                          
-                                        </div>  <!--end col-->                                      
+                                            </div>  <!--end /div-->
+                                        </div>  <!--end col-->
                                     </div><!--end row-->
 
                                     <div class="row justify-content-center">
                                         <div class="col-lg-6">
                                             {{-- <h5 class="mt-4">Terms And Condition :</h5> --}}
                                             {{-- <ul class="pl-3" id="terms_field">
-                                                
+
                                                 <li><small class="font-12"><input type="text" name="terms[0][body]"  class="form-control body"></small></li>
-                                            
+
                                             </ul> --}}
                                             <table class="table table-bordered">
                                                 <thead>
@@ -460,7 +460,7 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                        </div> <!--end col-->                                       
+                                        </div> <!--end col-->
                                         <div class="col-lg-6 align-self-end">
                                             <div class="w-25 float-right">
                                                 <small>Account Manager</small>
