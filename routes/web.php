@@ -33,6 +33,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/promotion', function () {
+    return view('promotion');
+})->name('promotion');
+
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/chat', function () {
     $contacts = User::all();
     $groups = Group::all();

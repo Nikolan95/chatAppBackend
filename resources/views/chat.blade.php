@@ -29,33 +29,6 @@
 
     <!-- App styles -->
     <link rel="stylesheet" href="{{asset('css/appold.css')}}">
-
-    <!-- jQuery -->
-    <script src="{{asset('/js/jquery-3.4.1.min.js')}}"></script>
-    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-
-    <!-- Bootstrap Core JS -->
-    <script src="{{asset('/js/popper.min.js')}}"></script>
-    <script src="{{asset('/js/bootstrap.min.js')}}"></script>
-
-    <!-- Custom Scroll JS -->
-    <script src="{{asset('/js/jquery.nicescroll.min.js')}}"></script>
-    <script src="{{asset('/plugins/mcustomscroll/jquery.mCustomScrollbar.js')}}"></script>
-
-    <script src="{{asset('/js/custom.js')}}"></script>
-
-    <script src="{{asset('/js/images.js')}}"></script>
-
-    <script src="{{asset('/js/chatgroup.js')}}"></script>
-
-    <script src="{{asset('/js/accounting.js')}}"></script>
-
-    <script src="{{asset('/js/offerform.js')}}"></script>
-
-    <!-- Custom JS -->
-    <script src="{{asset('/js/script.js')}}"></script>
-
-
 </head>
 
 <body>
@@ -189,27 +162,10 @@
                 <div class="chat-options">
                     <ul class="list-inline">
                         <li class="list-inline-item" data-toggle="tooltip" title=""
-                            data-original-title="Voice call">
-                            <a href="javascript:void(0)" class="btn btn-outline-light" data-toggle="modal"
-                               data-target="#voice_call">
-                                <i class="fas fa-phone-alt voice_chat_phone"></i>
+                            data-original-title="Kunden anzeigen">
+                            <a href="#" class="btn btn-outline-light dream_profile_menu">
+                                <i class="fas fa-user-alt voice_chat_phone"></i>
                             </a>
-                        </li>
-                        <li class="list-inline-item" data-toggle="tooltip" title=""
-                            data-original-title="Video call">
-                            <a href="javascript:void(0)" class="btn btn-outline-light" data-toggle="modal"
-                               data-target="#video_call">
-                                <i class="fas fa-video"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="btn btn-outline-light" href="#" data-toggle="dropdown">
-                                <i class="fas fa-ellipsis-h"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a href="#" class="dropdown-item dream_profile_menu">Profile</a>
-                                <a href="#" class="dropdown-item">Delete</a>
-                            </div>
                         </li>
                     </ul>
                 </div>
@@ -219,7 +175,8 @@
             <div class="chat-footer">
                 <meta name="csrf-token" content="{{ csrf_token() }}">
                 <div style="display: flex">
-                    <input type="text" class="form-control chat_form input" placeholder="Nachricht verfassen ..." name="body"
+                    <input type="text" class="form-control chat_form input" placeholder="Nachricht verfassen ..."
+                           name="body"
                            id="body" class="submit"/>
 
                     <button class="btn" type="button" data-toggle="modal" data-target="#drag_files">
@@ -284,12 +241,14 @@
                                     <div class="mt-2 text-left">
                                         <h6>Name:<span class="text-muted ml-2"> Max Mustermann </span></h6>
                                         <h6>E-Mail:<span class="text-muted ml-2">max.mustermann@gmx.at</span></h6>
-                                        <h6>Adresse:<span class="text-muted ml-2">Am Bindermichl 35, 4020 Linz</span></h6>
+                                        <h6>Adresse:<span class="text-muted ml-2">Am Bindermichl 35, 4020 Linz</span>
+                                        </h6>
                                         <h6>Telefonnummer:<span class="text-muted ml-2">+(33 1) 45 55 01 10</span></h6>
                                     </div>
                                 </div>
                                 <div class="accordion-title">
-                                    <h6 class="primary-title">Einstellungen <i class="fas fa-chevron-right float-right"></i>
+                                    <h6 class="primary-title">Einstellungen <i
+                                            class="fas fa-chevron-right float-right"></i>
                                     </h6>
                                 </div>
                                 <div class="accordion-content">
@@ -339,7 +298,30 @@
 
 </div>
 @include('modals')
+<!-- jQuery -->
+<script src="{{asset('/js/jquery-3.4.1.min.js')}}"></script>
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 
+<!-- Bootstrap Core JS -->
+<script src="{{asset('/js/popper.min.js')}}"></script>
+<script src="{{asset('/js/bootstrap.min.js')}}"></script>
+
+<!-- Custom Scroll JS -->
+<script src="{{asset('/js/jquery.nicescroll.min.js')}}"></script>
+<script src="{{asset('/plugins/mcustomscroll/jquery.mCustomScrollbar.js')}}"></script>
+
+<script src="{{asset('/js/custom.js')}}"></script>
+
+<script src="{{asset('/js/images.js')}}"></script>
+
+<script src="{{asset('/js/chatgroup.js')}}"></script>
+
+<script src="{{asset('/js/accounting.js')}}"></script>
+
+<script src="{{asset('/js/offerform.js')}}"></script>
+
+<!-- Custom JS -->
+<script src="{{asset('/js/script.js')}}"></script>
 
 </body>
 
