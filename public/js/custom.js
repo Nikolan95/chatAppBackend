@@ -120,13 +120,13 @@ $(document).ready(function () {
                  contentType: false,
                  cache: false,
                  success: function (data) {
-
+                    
                  },
                  error: function (jqXHR, status, err) {
 
                  },
                  complete: function () {
-                        $(`#drag_files`).modal('hide');
+                        $(`#drag_files`).modal().hide();
                      scrollToBottomFunc();
                  }
              })
