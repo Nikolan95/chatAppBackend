@@ -36,6 +36,10 @@
                     <input type="hidden" id="blob" value="{{$line->image}}">
                     <img src="data:image/png;base64,{{ chunk_split($line->image) }}" alt="" class="d-block mx-auto my-4 img" id="img" height="130">
                 </a>
+                @elseif($line->file != null)
+                <a lass="btn send-btn" type="button" href="http://127.0.0.1:8000{{$line->file->file_path}}" target="blank">
+                        <i class="fas fa-file-pdf"></i>
+                </a>
                 @elseif($line->body == null && $line->image == null)
                     <button class="btn send-btn" type="button" data-toggle="modal" data-target="#offer{{$line->id}}" data-id="{{$line->id}}" id="documentModal">
                         <i class="fas fa-file"></i>

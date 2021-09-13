@@ -17,7 +17,7 @@ class ConversationController extends Controller
      */
     public function index()
     {
-        $conversations = Conversation::with('messages')->with('messages.offeritems')->with('messages.termsandconditions')->where('user_id',auth()->user()->id)->orWhere('second_user_id',auth()->user()->id)->orderBy('updated_at', 'desc')->get();
+        $conversations = Conversation::with('messages')->with('messages.offeritems')->with('messages.termsandconditions')->with('messages.file')->where('user_id',auth()->user()->id)->orWhere('second_user_id',auth()->user()->id)->orderBy('updated_at', 'desc')->get();
 		$count = count($conversations);
 		// $array = [];
 		for ($i = 0; $i < $count; $i++) {

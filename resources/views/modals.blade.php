@@ -255,67 +255,6 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                {{-- <form method="POST" action="/sendOffer" id="offerForm" >
-                    {{ csrf_field() }}
-                    <input type="hidden" value="{{auth()->user()->id}}" name="user_id" id="user_id">
-                    <input class="fa fa-cloud-upload fa-2x" type="hidden" id="cnv1" name="conversation_id" value="">
-                    <input class="fa fa-cloud-upload fa-2x" type="hidden" id="susr1" name="second_user_id" value="">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="panel-body">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <th>Article number</th>
-                                            <th>Name</th>
-                                            <th>Quantity</th>
-                                            <th>Price</th>
-                                            <th>Total</th>
-                                            <th style="text-align:center;background:#eee"><a href="#" class="addRow" id="addRow"><i class="fas fa-plus"></i></a></th>
-                                        </thead>
-                                        <tbody id="dynamic_field">
-                                            <tr>
-                                                <td><input type="text" name="items[0][article]"  class="form-control desc"> </td>
-                                                <td><input type="text" name="items[0][name]"  class="form-control desc"> </td>
-                                                <td><input type="text" name="items[0][amount]"  class="form-control amount" > </td>
-                                                <td><input type="text" name="items[0][price]" class="form-control input-sm price"> </td>
-                                                <td><input type="text" class="form-control input-sm totalRow" name="items[0][total]" id="total" readonly>
-                                                    <input type="hidden" class="totalFlat" name="items[0][totalFlat]" id="totalFlat">
-                                                </td>
-                                                <td></td>
-                                            </tr>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <td style="border:none"></td>
-                                                <td style="border:none"></td>
-                                                <td style="border:none"></td>
-                                                <td style="border:none" align="right"> Total</td>
-                                                <td><output class="total" name="result" readonly id="result"></output></td>
-                                                <td style="border:none"></td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <th>Terms and conditions</th>
-                                            <th style="text-align:center;background:#eee"><a href="#" class="addRowTerms" id="addRowTerms"><i class="fas fa-plus"></i></a></th>
-                                        </thead>
-                                        <tbody id="terms_field">
-                                            <tr>
-                                                <td style="width: 96.5%"><input type="text" name="terms[0][body]"  class="form-control body"> </td>
-                                                <td></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>    <!-- container -->
-                    </div>
-                    <div class="text-center mt-0">
-                        <button class="btn newgroup_create m-0" type="submit">Add to upload</button>
-                    </div>
-                </form> --}}
                 <div class="row">
                     <div class="col-lg-8 mx-auto">
                         <form method="POST" action="/sendOffer" id="offerForm" >
@@ -442,12 +381,6 @@
 
                                     <div class="row justify-content-center">
                                         <div class="col-lg-6">
-                                            {{-- <h5 class="mt-4">Terms And Condition :</h5> --}}
-                                            {{-- <ul class="pl-3" id="terms_field">
-
-                                                <li><small class="font-12"><input type="text" name="terms[0][body]"  class="form-control body"></small></li>
-
-                                            </ul> --}}
                                             <table class="table table-bordered">
                                                 <thead>
                                                     <th>Terms and conditions</th>
@@ -493,3 +426,19 @@
 </div>
 @endforeach
 <!-- /formular -->
+
+@foreach($conversations as $line)
+<div id="send_pdf{{$line['id']}}" class="modal fade offerModal" role="dialog">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Fill out the form</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach

@@ -34,6 +34,7 @@ $(document).ready(function () {
         $('#groupUserId').val(sursId);
         $('#target').attr('data-target', '#offer_form'+conversationId);
         $('#target2').attr('data-target', '#offer_form'+conversationId);
+        $('#targetpdf').attr('data-target', '#send_pdf'+conversationId);
 
 
         $.ajaxSetup({
@@ -213,7 +214,7 @@ $(document).ready(function () {
 
                  },
                  complete: function () {
-                        $(`#drag_files`).modal().hide();
+                        $(`#drag_files`).modal('toggle');
                      scrollToBottomFunc();
                  }
              })

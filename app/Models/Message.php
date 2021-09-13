@@ -23,4 +23,8 @@ class Message extends Model
     {
         return $this->hasMany(termsAndConditions::class);
     }
+    public function file()
+    {
+        return $this->hasOne(File::class);
+    }
 }

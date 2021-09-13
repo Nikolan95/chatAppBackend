@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Conversation;
 use App\Models\Message;
+use App\Models\File;
 use App\Models\Offeritem;
 use App\Models\TermsAndConditions;
 use App\Models\User;
@@ -25,7 +26,7 @@ class HomeController extends Controller
         $contacts = User::all();
         $groups = Group::all();
         $user =  new UserResourceLaravel(auth()->user());
-        $conversations = Conversation::with('messages')->with('messages.offeritems')->with('messages.termsandconditions')->where('user_id',auth()->user()->id)->orWhere('second_user_id',auth()->user()->id)->with('car')->orderBy('updated_at', 'desc')->get();
+        $conversations = Conversation::with('messages')->with('messages.offeritems')->with('messages.termsandconditions')->with('messages.file')->where('user_id',auth()->user()->id)->orWhere('second_user_id',auth()->user()->id)->with('car')->orderBy('updated_at', 'desc')->get();
 		$count = count($conversations);
 		// $array = [];
 		for ($i = 0; $i < $count; $i++) {
@@ -96,7 +97,7 @@ class HomeController extends Controller
     }
     public function getMessages($conversation_id)
     {
-        $conversation = Conversation::with('messages')->with('messages.offeritems')->with('messages.termsandconditions')->where('id',$conversation_id)->get();
+        $conversation = Conversation::with('messages')->with('messages.offeritems')->with('messages.termsandconditions')->with('messages.file')->where('id',$conversation_id)->get();
         $count = count($conversation);
 		for ($i = 0; $i < $count; $i++) {
 			for ($j = $i + 1; $j < $count; $j++) {
@@ -151,40 +152,83 @@ class HomeController extends Controller
         $sender = Auth()->id();
         $reciever = (int)$request->second_user_id;
 
-        $image = $request->file('image');
-        $imageContent = file_get_contents($image);
-        $base64 = base64_encode($imageContent);
-        //dd($base64);
+        $file = $request->file('image');
 
-        //$contents = $image->openFile()->fread($image->getSize());
-        //dd($contents);
+        if($file->extension() == 'pdf'){
+            $message = new Message();
+            $message->read = 0;
+            $message->user_id = auth()->id();
+            $message->conversation_id = (int)$request['conversation_id'];
+            $message->save();
 
-        $message = new Message();
-        $message->image = $base64;
-        $message->read = 0;
-		$message->user_id = auth()->id();
-		$message->conversation_id = (int)$request['conversation_id'];
-        $message->save();
+            $conversation = $message->conversation;
 
-        $conversation = $message->conversation;
+            $fileModel = new File;
 
-        $user = User::findOrFail($conversation->user_id == auth()->id() ? $conversation->second_user_id: $conversation->user_id);
-		$user->pushNotification(auth()->user()->name.' send you a message',$message->image,$message);
+            $fileName = time().'_'.$request->file('image')->getClientOriginalName();
+            $filePath = $request->file('image')->storeAs('uploads', $fileName, 'public');
 
-        $options = array(
-            'cluster' => 'eu',
-            'useTLS' => true
-        );
+            $fileModel->message_id = $message->id;
+            $fileModel->name = time().'_'.$request->file('image')->getClientOriginalName();
+            $fileModel->file_path = '/storage/' . $filePath;
+            $fileModel->save();
 
-        $pusher = new Pusher(
-            env('PUSHER_APP_KEY'),
-            env('PUSHER_APP_SECRET'),
-            env('PUSHER_APP_ID'),
-            $options
-        );
+            $conversation = $message->conversation;
 
-        $data = ['from' => $sender, 'to' => $reciever];
-        $pusher->trigger('my-channel', 'my-event', $data);
+            $user = User::findOrFail($conversation->user_id == auth()->id() ? $conversation->second_user_id: $conversation->user_id);
+            $user->pushNotification(auth()->user()->name.' send you a message',$message->image,$message);
+
+            $options = array(
+                'cluster' => 'eu',
+                'useTLS' => true
+            );
+
+            $pusher = new Pusher(
+                env('PUSHER_APP_KEY'),
+                env('PUSHER_APP_SECRET'),
+                env('PUSHER_APP_ID'),
+                $options
+            );
+
+            $data = ['from' => $sender, 'to' => $reciever];
+            $pusher->trigger('my-channel', 'my-event', $data);
+
+        }
+        else if($file->extension() == 'png'){
+            $imageContent = file_get_contents($file);
+            $base64 = base64_encode($imageContent);
+            //dd($file->extension());
+
+            //$contents = $image->openFile()->fread($image->getSize());
+            //dd($contents);
+
+            $message = new Message();
+            $message->image = $base64;
+            $message->read = 0;
+            $message->user_id = auth()->id();
+            $message->conversation_id = (int)$request['conversation_id'];
+            $message->save();
+
+            $conversation = $message->conversation;
+
+            $user = User::findOrFail($conversation->user_id == auth()->id() ? $conversation->second_user_id: $conversation->user_id);
+            $user->pushNotification(auth()->user()->name.' send you a message',$message->image,$message);
+
+            $options = array(
+                'cluster' => 'eu',
+                'useTLS' => true
+            );
+
+            $pusher = new Pusher(
+                env('PUSHER_APP_KEY'),
+                env('PUSHER_APP_SECRET'),
+                env('PUSHER_APP_ID'),
+                $options
+            );
+
+            $data = ['from' => $sender, 'to' => $reciever];
+            $pusher->trigger('my-channel', 'my-event', $data);
+        }
     }
     public function sendOffer(Request $request)
     {

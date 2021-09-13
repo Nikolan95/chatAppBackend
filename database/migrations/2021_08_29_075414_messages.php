@@ -20,6 +20,7 @@ class Messages extends Migration
             $table->BigInteger('user_id')->unsigned();
             $table->BigInteger('conversation_id')->unsigned();
             $table->timestamps();
+            $table->string('pdf')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('conversation_id')->references('id')->on('conversations')->onDelete('cascade');
