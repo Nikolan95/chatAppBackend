@@ -194,7 +194,7 @@ class HomeController extends Controller
             $pusher->trigger('my-channel', 'my-event', $data);
 
         }
-        else if($file->extension() == 'png'){
+        else {
             $imageContent = file_get_contents($file);
             $base64 = base64_encode($imageContent);
             //dd($file->extension());
