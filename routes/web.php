@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SidebarController;
 use App\Http\Controllers\GroupController;
 use App\Events\Message as Message2;;
 use Illuminate\Http\Request;
@@ -71,9 +72,15 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/chat', function () {
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/conversation/{id}', [HomeController::class, 'conversationMessages'])->name('conversation.messages');
     Route::get('messages/{conversation_id}', [HomeController::class, 'getMessages'])->name('messages');
+    //routes for side bar
+        Route::get('profilename/{conversation_id}', [SidebarController::class, 'getProfileName'])->name('profilname');
+        Route::get('medias/{conversation_id}', [SidebarController::class, 'getMedias'])->name('medias');
+        Route::get('kundedata/{conversation_id}', [SidebarController::class, 'getKundeData'])->name('kundedata');
+        Route::get('cardata/{conversation_id}', [SidebarController::class, 'getCarData'])->name('cardata');
     Route::post('conversation', [HomeController::class, 'conversationCreate'])->name('conversation.create');
     Route::post('group', [GroupController::class, 'createGroup'])->name('group.create');
     Route::post('sendMessage', [HomeController::class, 'sendMessage'])->name('send.message');
     Route::post('sendImage', [HomeController::class, 'sendImage'])->name('send.image');
     Route::post('sendOffer', [HomeController::class, 'sendOffer'])->name('send.offer');
+    Route::post('message/read/{conversation_id}', [HomeController::class, 'messageSeen'])->name('seen.message');
 });

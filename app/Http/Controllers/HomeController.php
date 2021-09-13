@@ -96,14 +96,8 @@ class HomeController extends Controller
     }
     public function getMessages($conversation_id)
     {
-        //$conversation = Conversation::where('id',$conversation_id)->get();
         $conversation = Conversation::with('messages')->with('messages.offeritems')->with('messages.termsandconditions')->where('id',$conversation_id)->get();
-        // $conversation = Conversation::whereHas('messages', function($q){
-        //     $q->with('offeritems');
-        // })->get();
-        //$conversation = Message::with('conversation', 'offeritems')->where('conversation.id', $conversation_id)->get();
         $count = count($conversation);
-		// $array = [];
 		for ($i = 0; $i < $count; $i++) {
 			for ($j = $i + 1; $j < $count; $j++) {
 				if (isset($conversation[$i]->messages->last()->id) && isset($conversation[$j]->messages->last()->id) && $conversation[$i]->messages->last()->id < $conversation[$j]->messages->last()->id) {
@@ -113,15 +107,8 @@ class HomeController extends Controller
 				}
 			}
 		}
-        //dd($conversation);
         $conversation = ConversationResource::collection($conversation);
-        // foreach($conversation[0]->messages as $message){
-        //     $message->image = mb_convert_encoding($message->image, 'UTF-8', 'UTF-8');
-        // }
         $conversation = $conversation->toArray($conversation);
-
-       //dd($conversation);
-        //return $conversation;
 
         return view('messages.conversation')->with('conversation', $conversation);
 
@@ -133,7 +120,7 @@ class HomeController extends Controller
 
         $message = new Message();
 		$message->body = $request['body'];
-		$message->read = false;
+		$message->read = 0;
 		$message->user_id = auth()->id();
 		$message->conversation_id = (int)$request['conversation_id'];
 		$message->save();
@@ -174,7 +161,7 @@ class HomeController extends Controller
 
         $message = new Message();
         $message->image = $base64;
-        $message->read = false;
+        $message->read = 0;
 		$message->user_id = auth()->id();
 		$message->conversation_id = (int)$request['conversation_id'];
         $message->save();
@@ -212,7 +199,7 @@ class HomeController extends Controller
       $offerItem = new Offeritem;
       $termsAndConditions = new TermsAndConditions;
 
-      $message->read = false;
+      $message->read = 0;
       $message->user_id = $request->user_id;
       $message->conversation_id = $request->conversation_id;
 
@@ -262,5 +249,20 @@ class HomeController extends Controller
         ]);
 
         return redirect()->route('chat');
+    }
+    public function messageSeen($conversation_id)
+    {
+        
+
+        $conversation = Conversation::findORFail($conversation_id);
+
+        //return $conversation->messages;
+
+        foreach($conversation->messages as $line){
+            //$line->update(['read'=>1])->where('user_id' != auth()->id());
+            DB::table('messages')->where('conversation_id', $conversation->id)->where('user_id','!=', Auth()->id())->update(['read' => 1]);
+        }
+
+        return response()->json('message seened', 200);
     }
 }

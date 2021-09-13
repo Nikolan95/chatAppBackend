@@ -2,14 +2,28 @@ var reciever_id = '';
 let my_id = "{{ Auth::id() }}";
 
 $(document).ready(function () {
+    $('.hidesidebar').hide();
+    $('.hidechatfooter').hide();
+    $('.hiddenchatheader').hide();
     $('.conversation').click(function () {
+        $('.hidesidebar').show();
+        $('.hidechatfooter').show();
+        $('.hiddenchatheader').show();
         $('.conversation').removeClass('unread');
         $(this).addClass('unread');
         $(this).find('.pending').remove();
+        $(this).find('.kesa').remove();
         chatName = $(this).attr('value');
+        // email = $(this).attr('email');
+        // address = $(this).attr('address');
+        // telefon = $(this).attr('telefon');
         car = $(this).attr('itemprop');
         $('.chatName').html(chatName +'    '+ car);
-        $('.profile-name').html(chatName);
+        //$('.profile-name').html(chatName);
+        // $('#sidename').html(chatName);
+        // $('#sideemail').html(email);
+        // $('#sideaddress').html(address);
+        // $('#sidetelefon').html(telefon);
         $('.Slika img').show();
         conversationId = $(this).attr('id');
         sursId = $(this).attr('itemid');
@@ -22,21 +36,22 @@ $(document).ready(function () {
         $('#target2').attr('data-target', '#offer_form'+conversationId);
 
 
-        // $("#documentModal").on("click", function(e) { 
-        //     e.preventDefault();
-        //     alert('klik');
-        //     // $('.offerModal').modal('show');
-        //     // $('.offerModal').on('shown.bs.modal', function() {
-        //     //     $('.offerModal').find('#billing_adress').html('<strong class="font-14">Billed To :</strong><br>'+
-        //     //     'vfdv<br>'+
-        //     //     '795 Folsom Ave<br>'+
-        //     //     'San Francisco, CA 94107<br>'+
-        //     //     '<abbr title="Phone">P:</abbr> (123) 456-7890');
-        //     // });
-        // });
-        
-
-
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "post",
+            url: "/message/read/" + conversationId,
+            data: "",
+            cache: false,
+            success: function (data) {
+                console.log(data);
+                $('.pending' + conversationId).val(0);
+                $('.pending' + conversationId).hide();
+            }
+        });
 
         $.ajax({
             type: "get",
@@ -48,6 +63,48 @@ $(document).ready(function () {
                 scrollToBottomFunc();
             }
         });
+
+        $.ajax({
+            type: "get",
+            url: "/profilename/" + conversationId,
+            data: "",
+            cache: false,
+            success: function (data) {
+                $('.sidebarprofilename').html(data);
+            }
+        });
+
+        $.ajax({
+            type: "get",
+            url: "/kundedata/" + conversationId,
+            data: "",
+            cache: false,
+            success: function (data) {
+                $('.sidebarkundedata').html(data);
+            }
+        });
+
+        $.ajax({
+            type: "get",
+            url: "/cardata/" + conversationId,
+            data: "",
+            cache: false,
+            success: function (data) {
+                $('.sidebarcardata').html(data);
+            }
+        });
+
+        $.ajax({
+            type: "get",
+            url: "/medias/" + conversationId,
+            data: "",
+            cache: false,
+            success: function (data) {
+                $('.sidebarmedia').html(data);
+            }
+        });
+
+
         my_id = $('#user_id').val();
         Pusher.logToConsole = true;
 
@@ -68,6 +125,7 @@ $(document).ready(function () {
 
         if ($('#user_id').val() == data.from) {
             //alert('got message');
+            $('.lasttime' + data.id).val('1 second ago');
             $('#' + $('#conversation_id').val()).click();
         }
         else if ($('#user_id').val() == data.to) {
@@ -75,18 +133,47 @@ $(document).ready(function () {
 
 
             if ($('#second_user_id').val() == data.from) {
+                var pending = parseInt($('.pending' + data.id).val());
                 // if receiver is selected, reload the selected user ...
+                if (pending) {
+                    var moveup = $(".user-list").find(`[id='${data.id}']`);
+                    $(".user-list").prepend(moveup);
+                    $('.lastmessage' + data.id).val(data.message);
+                    $('.lasttime' + data.id).val('1 second ago');
+                    $('.pending' + data.id).show();
+                    $('.pending' + data.id).val(pending+1);
+                }
+                else {
+                    var moveup = $(".user-list").find(`[id='${data.id}']`);
+                    $(".user-list").prepend(moveup);
+                    $('.lastmessage' + data.id).val(data.message);
+                    $('.lasttime' + data.id).val('1 second ago');
+                    $('.pending' + data.id).show();
+                    $('.pending' + data.id).val(1);
+                }
                 $('#' + $('#conversation_id').val()).click();
             } else {
                 // if receiver is not seleted, add notification for that user
-                var pending = parseInt($('#' + data.from).find('.pending').html());
+                var pending = parseInt($('.pending' + data.id).val());
+                console.log(pending);
 
                 if (pending) {
-                    alert('pending');
-                    $('#' + data.from).find('.pending').html(pending + 1);
-                } else {
-                    alert('not pending');
-                    $('#' + data.from).append('<span class="pending">1</span>');
+                    var moveup = $(".user-list").find(`[id='${data.id}']`);
+                    $(".user-list").prepend(moveup);
+                    $('.lastmessage' + data.id).val(data.message);
+                    $('.lasttime' + data.id).val('1 second ago');
+                    $('.pending' + data.id).show();
+                    $('.pending' + data.id).attr('id', 'pendingcss');
+                    $('.pending' + data.id).val(pending+1);
+                }
+                else {
+                    var moveup = $(".user-list").find(`[id='${data.id}']`);
+                    $(".user-list").prepend(moveup);
+                    $('.lastmessage' + data.id).val(data.message);
+                    $('.lasttime' + data.id).val('1 second ago');
+                    $('.pending' + data.id).show();
+                    $('.pending' + data.id).attr('id', 'pendingcss');
+                    $('.pending' + data.id).val(1);
                 }
             }
         }

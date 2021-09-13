@@ -25,6 +25,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('register', [UserController::class, 'register']);
+
 Route::post('/sanctum/token', function (Request $request) {
     $request->validate([
         'email' => 'required|email',

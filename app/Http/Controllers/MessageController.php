@@ -22,7 +22,7 @@ class MessageController extends Controller
         $message = new Message();
         $message->image = $request['image'];
 		$message->body = $request['body'];
-		$message->read = false;
+		$message->read = 0;
 		$message->user_id = auth()->id();
 		$message->conversation_id = (int)$request['conversation_id'];
 		$message->save();
@@ -55,7 +55,7 @@ class MessageController extends Controller
             $options
         );
 
-        $data = ['from' => $sender, 'to' => $reciever];
+        $data = ['from' => $sender, 'to' => $reciever, 'id' => $conversation->id, 'message' => $message->body];
         $pusher->trigger('my-channel', 'my-event', $data);
 
 

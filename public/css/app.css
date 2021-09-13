@@ -242,6 +242,10 @@ legend {
 	padding: 0;
 }
 
+.sidehidden{
+	display: none;
+}
+
 /**
 Add the correct vertical alignment in Chrome and Firefox.
 */
@@ -2227,4 +2231,5 @@ select {
 		padding-right: 2rem;
 	}
 }
+
 

@@ -27,11 +27,10 @@ class storeUserRequest extends FormRequest
 			"email"=>"required|unique:users,email",
 			"password"=> "required|min:6",
 			"name"=> "required",
-            "surname"=> "required",
             "company"=> "required",
             "street"=> "required",
             "city"=> "required",
-            "telefon"=> "required"
+            "phoneNumber"=> "required"
         ];
     }
 }

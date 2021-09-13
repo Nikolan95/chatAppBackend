@@ -20,11 +20,10 @@ class UserController extends Controller
 
          $user = User::create([
 			'name'=>$request['name'],
-            'surname'=>$request['surname'],
             'company'=>$request['company'],
             'street'=>$request['street'],
             'city'=>$request['city'],
-            'telefon'=>$request['telefon'],
+            'phoneNumber'=>$request['phoneNumber'],
 			'email'=>$request['email'],
 			'password'=>Hash::make($request['password']),
             
