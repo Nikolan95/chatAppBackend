@@ -20,7 +20,7 @@ File: Leftbar
           box-shadow: 0px 0px 3px rgba(31, 30, 47, 0.05);
   -webkit-transition: .3s;
   transition: .3s;
-  position: fixed;
+  position: fixed;[type='file'] {
   z-index: 1001;
 }
 
@@ -2733,10 +2733,10 @@ p {
 
 /*!
  * Waves v0.7.6
- * http://fian.my.id/Waves 
- * 
- * Copyright 2014-2018 Alfiana E. Sibuea and other contributors 
- * Released under the MIT license 
+ * http://fian.my.id/Waves
+ *
+ * Copyright 2014-2018 Alfiana E. Sibuea and other contributors
+ * Released under the MIT license
  * https://github.com/fians/Waves/blob/master/LICENSE */
 .waves-effect {
   position: relative;
