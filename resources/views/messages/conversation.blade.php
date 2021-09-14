@@ -10,12 +10,19 @@
         </div>
         <div class="chat-content">
             <div class="message-content">
-                @if($line->body != null)
+                @if($line->body != null && ($line->image == null || empty($line->image)))
                 {{$line->body}}
-                @elseif($line->image != null)
-                    <img src="data:image/png;base64,{{ chunk_split(base64_encode($line->image)) }}" alt="" class="d-block mx-auto my-4 img" id="img" height="130">
-                @elseif($line->body == null && $line->image == null)
-                    <a href="#">document</a>
+                @elseif($line->image != null && ($line->body == 'just_img_no_text'))
+                    <a href="javascript:void(0)" onclick="openImage('{{$line->image}}')">
+                        <input type="hidden" id="blob" value="{{$line->image}}">
+                        <img src="data:image/png;base64,{{ chunk_split($line->image) }}" alt="" class="d-block mx-auto my-4 img" id="img" height="130">
+                    </a>
+                @elseif($line->image != null && ($line->body != null && $line->body != 'just_img_no_text'))
+                    <a href="javascript:void(0)" onclick="openImage('{{$line->image}}')">
+                        <input type="hidden" id="blob" value="{{$line->image}}">
+                        <img src="data:image/png;base64,{{ chunk_split($line->image) }}" alt="" class="d-block mx-auto my-4 img" id="img" height="130">
+                    </a>
+                {{$line->body}}
                 @endif
             </div>
             <div class="chat-time">
@@ -29,18 +36,18 @@
     <div class="chats chats-right" id="rightChatId">
         <div class="chat-content">
             <div class="message-content">
-                @if($line->body != null)
+                @if($line->body != null && (($line->image == null || empty($line->image)) && $line->body != 'just_offer_no_text' && $line->body != 'just_pdf_no_text'))
                 {{$line->body}}
-                @elseif($line->image != null)
+                @elseif($line->image != null && ($line->body == 'just_img_no_text'))
                 <a href="javascript:void(0)" onclick="openImage('{{$line->image}}')">
                     <input type="hidden" id="blob" value="{{$line->image}}">
                     <img src="data:image/png;base64,{{ chunk_split($line->image) }}" alt="" class="d-block mx-auto my-4 img" id="img" height="130">
                 </a>
-                @elseif($line->file != null)
+                @elseif($line->file != null && $line->body == 'just_pdf_no_text')
                 <a lass="btn send-btn" type="button" href="http://127.0.0.1:8000{{$line->file->file_path}}" target="blank">
                         <i class="fas fa-file-pdf"></i>
                 </a>
-                @elseif($line->body == null && $line->image == null)
+                @elseif($line->body == 'just_offer_no_text')
                     <button class="btn send-btn" type="button" data-toggle="modal" data-target="#offer{{$line->id}}" data-id="{{$line->id}}" id="documentModal">
                         <i class="fas fa-file"></i>
                     </button>

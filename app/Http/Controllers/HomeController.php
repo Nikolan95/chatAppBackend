@@ -156,7 +156,9 @@ class HomeController extends Controller
 
         if($file->extension() == 'pdf'){
             $message = new Message();
+
             $message->read = 0;
+            $message->body = 'just_pdf_no_text';
             $message->user_id = auth()->id();
             $message->conversation_id = (int)$request['conversation_id'];
             $message->save();
@@ -203,6 +205,7 @@ class HomeController extends Controller
             //dd($contents);
 
             $message = new Message();
+            $message->body = 'just_img_no_text';
             $message->image = $base64;
             $message->read = 0;
             $message->user_id = auth()->id();
@@ -243,6 +246,7 @@ class HomeController extends Controller
       $offerItem = new Offeritem;
       $termsAndConditions = new TermsAndConditions;
 
+      $message->body = 'just_offer_no_text';
       $message->read = 0;
       $message->user_id = $request->user_id;
       $message->conversation_id = $request->conversation_id;
@@ -296,7 +300,7 @@ class HomeController extends Controller
     }
     public function messageSeen($conversation_id)
     {
-        
+
 
         $conversation = Conversation::findORFail($conversation_id);
 

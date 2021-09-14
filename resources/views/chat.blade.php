@@ -98,18 +98,18 @@
                     <ul class="user-list">
                         @foreach($conversations as $conversation)
                         <li class="user-list-item conversation" id="{{$conversation['id']}}"
-                            value="{{$conversation['user']->name }}" 
+                            value="{{$conversation['user']->name }}"
                             email="{{ $conversation['user']->email }}"
                             address="{{ $conversation['user']->street }} {{ $conversation['user']->city }}"
-                            telefon="{{ $conversation['user']->phoneNumber }}"  
+                            telefon="{{ $conversation['user']->phoneNumber }}"
                             itemid="{{$conversation['user']->id}}"
                             itemprop="{{$conversation['car']->manufacturer_and_brand}}">
                             <?php $pos=0 ?>
                             @foreach ($conversation['messages'] as $item)
-                            
+
                                 @if($item->user_id != auth()->id() && $item->read == 0)
                                     <?php  $pos++ ?>
-                                    
+
                                 @endif
                             @endforeach
                             @if($pos != 0)
@@ -123,7 +123,15 @@
                             <div class="users-list-body">
                                 <div>
                                     <h5>{{$conversation['user']->name }}</h5>
-                                    <output class="lastmessage{{$conversation['id']}}">{{ $conversation['messages']->last()->body }}</output>
+                                    @if($conversation['messages']->last()->body == 'just_img_no_text')
+                                        <output class="lastmessage{{$conversation['id']}}">Bild</output>
+                                    @elseif($conversation['messages']->last()->body == 'just_pdf_no_text')
+                                        <output class="lastmessage{{$conversation['id']}}">PDF</output>
+                                    @elseif($conversation['messages']->last()->body == 'just_offer_no_text')
+                                        <output class="lastmessage{{$conversation['id']}}">Angebot</output>
+                                    @else
+                                        <output class="lastmessage{{$conversation['id']}}">{{ $conversation['messages']->last()->body }}</output>
+                                    @endif
                                 </div>
                                 <div class="last-chat-time">
                                     <small class="text-muted"><output class="lasttime{{$conversation['id']}}">{{
@@ -248,11 +256,11 @@
                                     <img src="{{asset('images/profile.png')}}" class="rounded-circle" alt="image">
                                 </figure>
                                 <div class="sidebarprofilename">
-                                    
+
                                 </div>
                             </div>
                             <div>
-            
+
                                 <div class="accordion-col">
                                     <div class="accordion-title">
                                         <h6 class="primary-title">Medien <i
@@ -260,7 +268,7 @@
                                     </div>
                                     <div class="accordion-content">
                                         <div class="sidebarmedia">
-                                            
+
                                         </div>
                                     </div>
                                     <div class="accordion-title">
@@ -270,7 +278,7 @@
                                     <div class="accordion-content">
                                         <div class="mt-2 text-left">
                                             <div class="sidebarkundedata">
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -281,7 +289,7 @@
                                     <div class="accordion-content">
                                         <div class="mt-2 text-left">
                                             <div class="sidebarcardata">
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -323,7 +331,7 @@
                                         </form>
                                     </div>
                                 </div>
-            
+
                             </div>
                         </div>
                     </div>
