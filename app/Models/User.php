@@ -85,7 +85,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Car::class);
     }
-    public function pushNotification($title,$body,$message){
+    public function pushNotification($title,$body,$image,$message){
 
 		$token = $this->fcm_token;
 
@@ -98,6 +98,8 @@ class User extends Authenticatable
 		$data['priority']= 'normal';
 		$data['data']['click_action'] = 'FLUTTER_NOTIFICATION_CLICK';
 		$data['data']['message']=$message;
+        $data['data']['image']=$image;
+        //$data['data']['file']=$file;
 		$data['to'] = $token;
 
 

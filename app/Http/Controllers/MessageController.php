@@ -40,7 +40,7 @@ class MessageController extends Controller
         }
 
 		$user = User::findOrFail($conversation->user_id == auth()->id() ? $conversation->second_user_id: $conversation->user_id);
-		$user->pushNotification(auth()->user()->name.' send you a message',$message->body,$message);
+		$user->pushNotification(auth()->user()->name.' send you a message',$message->body,null, $message);
 
 
         $options = array(

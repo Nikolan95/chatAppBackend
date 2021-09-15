@@ -129,7 +129,7 @@ class HomeController extends Controller
         $conversation = $message->conversation;
 
         $user = User::findOrFail($conversation->user_id == auth()->id() ? $conversation->second_user_id: $conversation->user_id);
-		$user->pushNotification(auth()->user()->name.' send you a message',$message->body,$message);
+		$user->pushNotification(auth()->user()->name.' send you a message',$message->body, null, $message);
 
 
         $options = array(
@@ -212,10 +212,24 @@ class HomeController extends Controller
             $message->conversation_id = (int)$request['conversation_id'];
             $message->save();
 
+            $fileModel = new File;
+
+            $fileName = time().'_'.$request->file('image')->getClientOriginalName();
+            $filePath = $request->file('image')->storeAs('uploads', $fileName, 'public');
+
+            $fileModel->message_id = $message->id;
+            $fileModel->name = time().'_'.$request->file('image')->getClientOriginalName();
+            $fileModel->file_path = '/storage/' . $filePath;
+            $fileModel->save();
+
+            $message->body = 'http://192.168.0.21/atev-laravel-backend/public'.$fileModel->file_path;
+            $message->image = null;
+
+
             $conversation = $message->conversation;
 
             $user = User::findOrFail($conversation->user_id == auth()->id() ? $conversation->second_user_id: $conversation->user_id);
-            $user->pushNotification(auth()->user()->name.' send you a message',$message->image,$message);
+            $user->pushNotification(auth()->user()->name.' send you a Image','image', $message->body,$message);
 
             $options = array(
                 'cluster' => 'eu',
