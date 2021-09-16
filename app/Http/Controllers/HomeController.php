@@ -178,11 +178,11 @@ class HomeController extends Controller
 
             $conversation = $message->conversation;
 
-            $message->body = 'http://192.168.0.21/atev-laravel-backend/public'.$fileModel->file_path;
+            $message->body = 'http://10.0.2.2:8000'.$fileModel->file_path;
 
             $user = User::findOrFail($conversation->user_id == auth()->id() ? $conversation->second_user_id: $conversation->user_id);
             $user->pushNotification(auth()->user()->name.' send you a message','pdf',$message->body, $message);
-            
+
 
             $options = array(
                 'cluster' => 'eu',
@@ -226,7 +226,7 @@ class HomeController extends Controller
             $fileModel->file_path = '/storage/' . $filePath;
             $fileModel->save();
 
-            $message->body = 'http://192.168.0.21/atev-laravel-backend/public'.$fileModel->file_path;
+            $message->body = 'http://10.0.2.2:8000'.$fileModel->file_path;
             $message->image = null;
 
 
@@ -303,7 +303,7 @@ class HomeController extends Controller
         $offerItemList = Offeritem::where('message_id', $message->id)->get();
         $termsList = TermsAndConditions::where('message_id', $message->id)->get();
 
-        
+
 
         $conversation = $message->conversation;
 

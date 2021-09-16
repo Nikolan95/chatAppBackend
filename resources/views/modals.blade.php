@@ -251,7 +251,7 @@
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Fill out the form</h4>
+                <h4 class="modal-title">Angebot erstellen</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -267,7 +267,7 @@
                                     <div class="row">
                                         <div class="col-md-4 align-self-center">
                                             <img src="{{('images/logo.png')}}" alt="logo-small" class="logo-sm mr-2" height="35">
-                                            <p class="mt-2 mb-0 text-muted">If account is not paid within 7 days the credits details supplied as confirmation.</p>
+                                            <p class="mt-2 mb-0 text-muted">Wenn die Rechnung nicht innerhalb von 7 Tagen bezahlt wird, werden die Kreditdaten als Bestätigung geliefert.</p>
                                         </div><!--end col-->
                                         <div class="col-md-8">
 
@@ -275,22 +275,22 @@
                                                 <li class="list-inline-item">
                                                     <div class="pl-3">
                                                         <i class="mdi mdi-web"></i>
-                                                        <p class="text-muted mb-0">www.abcdefghijklmno.com</p>
-                                                        <p class="text-muted mb-0">www.qrstuvwxyz.com</p>
+                                                        <p class="text-muted mb-0">www.atev.de</p>
+                                                        <!--<p class="text-muted mb-0">www.qrstuvwxyz.com</p>->>
                                                     </div>
                                                 </li>
                                                 <li class="list-inline-item">
                                                     <div class="pl-3">
                                                         <i class="mdi mdi-phone"></i>
-                                                        <p class="text-muted mb-0">+123 123456789</p>
-                                                        <p class="text-muted mb-0">+123 123456789</p>
+                                                        <p class="text-muted mb-0">+49 7141 899340</p>
+                                                        <!--<p class="text-muted mb-0">+123 123456789</p>-->
                                                     </div>
                                                 </li>
                                                 <li class="list-inline-item">
                                                     <div class="pl-3">
                                                         <i class="mdi mdi-map-marker"></i>
-                                                        <p class="text-muted mb-0">2821 Kensington Road,</p>
-                                                        <p class="text-muted mb-0">Avondale Estates, GA 30002 USA.</p>
+                                                        <p class="text-muted mb-0">Monreposstraße 57</p>
+                                                        <p class="text-muted mb-0">71634 Ludwigsburg, Deutschland</p>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -301,14 +301,14 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="">
-                                                <h6 class="mb-0"><b>Order Date :</b> {{ \Carbon\Carbon::now()->format('d/m/Y')}}</h6>
-                                                <h6><b>Order ID :</b> # 23654789</h6>
+                                                <h6 class="mb-0"><b>Bestelldatum:</b> {{ \Carbon\Carbon::now()->format('d/m/Y')}}</h6>
+                                                <h6><b>Bestell Nr.:</b> # 23654789</h6>
                                             </div>
                                         </div><!--end col-->
                                         <div class="col-md-3">
                                             <div class="float-left">
                                                 <address class="font-13">
-                                                    <strong class="font-14">Billed To :</strong><br>
+                                                    <strong class="font-14">Rechnungsadresse:</strong><br>
                                                         {{$line['user']->name}}<br>
                                                         {{$line['user']->street}}<br>
                                                         {{$line['user']->city}}<br>
@@ -319,7 +319,7 @@
                                         <div class="col-md-3">
                                             <div class="">
                                                 <address class="font-13">
-                                                    <strong class="font-14">Shipped To:</strong><br>
+                                                    <strong class="font-14">Lieferadresse:</strong><br>
                                                     {{$line['user']->name}}<br>
                                                     {{$line['user']->street}}<br>
                                                     {{$line['user']->city}}<br>
@@ -335,11 +335,11 @@
                                                 <table class="table table-bordered mb-0">
                                                     <thead class="thead-light">
                                                         <tr>
-                                                            <th>Artikel Nr</th>
+                                                            <th>Artikel Nr.</th>
                                                             <th>Name</th>
-                                                            <th>Qty</th>
-                                                            <th>Price</th>
-                                                            <th>Total</th>
+                                                            <th>Stk.</th>
+                                                            <th>Preis</th>
+                                                            <th>Gesamt</th>
                                                             <th style="text-align:center;background:#eee"><a href="#" class="addRow" id="addRow"><i class="fas fa-plus"></i></a></th>
                                                         </tr><!--end tr-->
                                                     </thead>
@@ -358,60 +358,52 @@
                                                         <tr>
                                                             <td class="border-0"></td>
                                                             <td colspan="2" class="border-0"></td>
-                                                            <td class="border-0 font-14 text-dark"><b>Sub Total</b></td>
+                                                            <td class="border-0 font-14 text-dark"><b>Zwischensumme</b></td>
                                                             <td class="border-0 font-14 text-dark"><b><output class="total" name="result" readonly id="result"></b></td>
                                                         </tr><!--end tr-->
                                                         <tr>
                                                             <th class="border-0"></th>
                                                             <th colspan="2" class="border-0"></th>
-                                                            <td class="border-0 font-14 text-dark"><b>Tax Rate</b></td>
-                                                            <td class="border-0 font-14 text-dark"><b>$0.00%</b></td>
+                                                            <td class="border-0 font-14 text-dark"><b>MwSt.</b></td>
+                                                            <td class="border-0 font-14 text-dark"><b>€0.00%</b></td>
                                                         </tr><!--end tr-->
                                                         <tr class="bg-black">
                                                             <th class="border-0"></th>
                                                             <th colspan="2" class="border-0"></th>
-                                                            <td class="border-0 font-14"><b>Total</b></td>
+                                                            <td class="border-0 font-14"><b>Gesamtsumme</b></td>
                                                             <td class="border-0 font-14"><b><output class="total" name="result" readonly id="result2"></b></td>
                                                         </tr><!--end tr-->
                                                     </tfoot>
                                                 </table><!--end table-->
                                             </div>  <!--end /div-->
                                         </div>  <!--end col-->
+                                         <div class="col-lg-6">
+                                                                                    <table class="table table-bordered">
+                                                                                        <thead>
+                                                                                            <th>Liefer &amp; Zahlungsbedingungen</th>
+                                                                                            <th style="text-align:center;background:#eee"><a href="#" class="addRowTerms" id="addRowTerms"><i class="fas fa-plus"></i></a></th>
+                                                                                        </thead>
+                                                                                        <tbody id="terms_field">
+                                                                                            <tr>
+                                                                                                <td style="width: 96.5%"><input type="text" name="terms[0][body]"  class="form-control body"> </td>
+                                                                                                <td></td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div> <!--end col-->
                                     </div><!--end row-->
 
                                     <div class="row justify-content-center">
-                                        <div class="col-lg-6">
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <th>Terms and conditions</th>
-                                                    <th style="text-align:center;background:#eee"><a href="#" class="addRowTerms" id="addRowTerms"><i class="fas fa-plus"></i></a></th>
-                                                </thead>
-                                                <tbody id="terms_field">
-                                                    <tr>
-                                                        <td style="width: 96.5%"><input type="text" name="terms[0][body]"  class="form-control body"> </td>
-                                                        <td></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div> <!--end col-->
-                                        <div class="col-lg-6 align-self-end">
-                                            <div class="w-25 float-right">
-                                                <small>Account Manager</small>
-                                                <img src="../assets/images/signature.png" alt="" class="" height="48">
-                                                <p class="border-top">Signature</p>
-                                            </div>
-                                        </div><!--end col-->
-                                    </div><!--end row-->
-                                    <hr>
                                     <div class="row d-flex justify-content-center">
-                                        <div class="col-lg-12 col-xl-4 ml-auto align-self-center">
-                                            <div class="text-center"><small class="font-12">Thank you very much for doing business with us.</small></div>
+                                        <div class="col-lg-12 col-xl-12 ml-auto align-self-center">
+                                            <div class="text-center"><small class="font-12">Vielen Dank, für Ihr Vertrauen!</small></div>
                                         </div><!--end col-->
-                                        <div class="col-lg-12 col-xl-4">
+                                        <div class="col-lg-12 col-xl-12">
                                             <div class="float-right d-print-none">
                                                 <a href="javascript:window.print()" class="btn btn-gradient-info"><i class="fa fa-print"></i></a>
-                                                <button type="submit" class="btn btn-gradient-primary">Submit</button>
-                                                <a href="#" class="btn btn-gradient-danger">Cancel</a>
+                                                <a href="#" style="background-color: darkred" class="btn btn-block newgroup_create mb-0">Abbrechen</a>
+                                                <button type="submit" class="btn btn-block newgroup_create mb-0">Bestätigen</button>
+
                                             </div>
                                         </div><!--end col-->
                                     </div><!--end row-->

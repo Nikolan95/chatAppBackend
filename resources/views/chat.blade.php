@@ -133,7 +133,11 @@
                                     @elseif($conversation['messages']->last()->body == 'just_offer_no_text')
                                         <output class="lastmessage{{$conversation['id']}}">Angebot</output>
                                     @else
-                                        <output class="lastmessage{{$conversation['id']}}">{{ $conversation['messages']->last()->body }}</output>
+                                        <output style="text-overflow: ellipsis !important;
+                                                           overflow: hidden !important;
+                                                           width: 160px !important;
+                                                           height: 1.2em !important;
+                                                           white-space: nowrap !important;" class="lastmessage{{$conversation['id']}}">{{ $conversation['messages']->last()->body }}</output>
                                     @endif
                                 </div>
                                 <div class="last-chat-time">
@@ -204,7 +208,7 @@
                                     <i class="fas fa-video"></i>
                                 </a>
                             </li>
-                            <li class="list-inline-item">
+                            <!--<li class="list-inline-item">
                                 <a class="btn btn-outline-light" href="#" data-toggle="dropdown">
                                     <i class="fas fa-ellipsis-h"></i>
                                 </a>
@@ -212,7 +216,7 @@
                                     <a href="#" class="dropdown-item dream_profile_menu">Profile</a>
                                     <a href="#" class="dropdown-item">Delete</a>
                                 </div>
-                            </li>
+                            </li>-->
                         </ul>
                     </div>
                 </div>
@@ -246,11 +250,11 @@
         <div class="hidesidebar">
             <div class="right-sidebar right_sidebar_profile" id="middle1">
                 <div class="right-sidebar-wrap active">
-                    <div class="contact-close_call mr-4 mt-4 text-right">
-                        <a href="#"
+                    <div style="margin-top: 40px !important" class="contact-close_call mr-4 mt-4 text-right">
+                        <!--<a href="#"
                         class="btn btn-outline-light close_profile close_profile4">
                             <i class="fas fa-times close_icon"></i>
-                        </a>
+                        </a>-->
                     </div>
                     <div class="sidebar-body">
                         <div class="pl-4 pr-4 mt-0 right_sidebar_logo">
@@ -286,7 +290,7 @@
                                         </div>
                                     </div>
                                     <div class="accordion-title">
-                                        <h6 class="primary-title">Car<i
+                                        <h6 class="primary-title">Fahrzeuginformationen<i
                                                 class="fas fa-chevron-right float-right"></i></h6>
                                     </div>
                                     <div class="accordion-content">

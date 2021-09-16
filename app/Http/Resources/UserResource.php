@@ -21,7 +21,7 @@ class UserResource extends JsonResource
         $data['city']= $this->city;
         $data['phoneNumber']= $this->phoneNumber;
 		$data['email']= $this->email;
-		$data['image_url']= isset($this->picture)? 'http://192.168.0.12/atevApplication/atevChatApp/storage/app/public/'.$this->picture->path : null;
+		$data['image_url']= isset($this->picture)? 'http://10.0.2.2:8000/storage/uploads/'.$this->picture->path : null;
         $data['cars'] = CarResource::collection($this->cars);
         return $data;
     }
