@@ -34,31 +34,33 @@
                         <div class="slider-tab"></div>
                     </div>
                     <div class="form-inner">
-                        <form action="#" class="login">
+                        <form action="/sendPromotion" method="POST" class="login">
+                            @csrf
                             <div class="form-group" style="margin-top: 2%">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" name="promotiontext"></textarea>
                             </div>
                             <div class="vertical-center">
                                 <div style="margin-top: 2%">
-                                    <button type="button" class="btn-grad">Aktion Starten</button>
+                                    <button type="submit" class="btn-grad">Aktion Starten</button>
                                 </div>
                             </div>
                         </form>
-                        <form action="#" class="signup">
+                        <form action="/sendPromotionMedia" method="POST" class="signup" enctype="multipart/form-data">
+                            @csrf
                             <div class="vertical-center" style="margin-top: 10%">
                                 <div style="width: 50%">
                                     <div class="card">
                                         <div class="card-body">
                                             <h4 class="mt-0 header-title">File Upload 1</h4>
                                             <p class="text-muted mb-3">Your so fresh input file — Default version</p>
-                                            <input type="file" id="input-file-now" class="dropify"/>
+                                            <input type="file" name="image" id="input-file-now" class="dropify"/>
                                         </div><!--end card-body-->
                                     </div>
                                 </div>
                             </div>
                             <div class="vertical-center">
                                 <div style="margin-top: 10%">
-                                    <button type="button" class="btn-grad">Aktion Starten</button>
+                                    <button type="submit" class="btn-grad">Aktion Starten</button>
                                 </div>
                             </div>
                         </form>

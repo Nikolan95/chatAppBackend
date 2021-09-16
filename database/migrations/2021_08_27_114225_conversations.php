@@ -18,6 +18,7 @@ class Conversations extends Migration
             $table->BigInteger('user_id')->unsigned();
             $table->BigInteger('second_user_id')->unsigned();
             $table->BigInteger('car_id')->unsigned();
+            $table->string('type');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

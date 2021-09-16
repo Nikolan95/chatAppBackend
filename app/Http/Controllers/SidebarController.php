@@ -78,7 +78,7 @@ class SidebarController extends Controller
     {
         $conversation = Conversation::where('id',$conversation_id)->with(['messages' => function ($query){
             $query->whereNotNull('image');
-        }])->get();
+        }])->with('messages.file')->get();
         //$count = count($conversation);
 		// for ($i = 0; $i < $count; $i++) {
 		// 	for ($j = $i + 1; $j < $count; $j++) {
@@ -89,10 +89,28 @@ class SidebarController extends Controller
 		// 		}
 		// 	}
 		// }
-        //$conversation = ConversationResource::collection($conversation);
+        $conversation = ConversationResource::collection($conversation);
         $conversation = $conversation->toArray($conversation);
 
-        return view('sidebar.medias')->with('conversation', $conversation);
+        $medias = array();
+
+         $countImages = count($conversation[0]['messages']);
+
+        for($i = 0; $i< $countImages; $i++){
+            if($conversation[0]['messages'][$i]['body'] == 'just_img_no_text'){
+                array_push($medias, $conversation[0]['messages'][$i]);
+            }
+        }
+        $collection = collect($medias);
+        $chunkImages = $collection->take(-3);
+
+        //dd($chunkImages);
+
+        // foreach($chunkImages as $line){
+        //     return $line;
+        // }
+
+        return view('sidebar.medias')->with('conversation', $conversation)->with('medias', $chunkImages);
         //return $conversation;
     //dd( $conversation);
     }

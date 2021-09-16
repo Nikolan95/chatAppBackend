@@ -247,7 +247,7 @@
 
 <!-- formular -->
 @foreach($conversations as $line)
-<div id="offer_form{{$line['id']}}" class="modal fade offerModal" role="dialog">
+<div id="offer_form{{$line['id']}}" class="modal fade offerModal angebot" role="dialog">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">

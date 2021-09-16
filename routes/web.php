@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SidebarController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\PromotionController;
 use App\Events\Message as Message2;;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -75,6 +76,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/chat', function () {
 })->name('chat');
 
 Route::group(['middleware' => 'auth'], function () {
+     Route::get('/promotions', [PromotionController::class, 'index'])->name('promotions');
     Route::get('/conversation/{id}', [HomeController::class, 'conversationMessages'])->name('conversation.messages');
     Route::get('messages/{conversation_id}', [HomeController::class, 'getMessages'])->name('messages');
     //routes for side bar
@@ -84,6 +86,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('cardata/{conversation_id}', [SidebarController::class, 'getCarData'])->name('cardata');
     Route::post('conversation', [HomeController::class, 'conversationCreate'])->name('conversation.create');
     Route::post('group', [GroupController::class, 'createGroup'])->name('group.create');
+    Route::post('sendPromotion', [PromotionController::class, 'sendPromotion'])->name('send.promotion');
+    Route::post('sendPromotionMedia', [PromotionController::class, 'sendPromotionMedia'])->name('send.sendPromotionMedia');
     Route::post('sendMessage', [HomeController::class, 'sendMessage'])->name('send.message');
     Route::post('sendImage', [HomeController::class, 'sendImage'])->name('send.image');
     Route::post('sendOffer', [HomeController::class, 'sendOffer'])->name('send.offer');

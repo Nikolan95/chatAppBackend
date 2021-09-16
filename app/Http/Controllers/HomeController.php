@@ -111,6 +111,7 @@ class HomeController extends Controller
         $conversation = ConversationResource::collection($conversation);
         $conversation = $conversation->toArray($conversation);
 
+
         return view('messages.conversation')->with('conversation', $conversation);
 
     }
@@ -177,8 +178,11 @@ class HomeController extends Controller
 
             $conversation = $message->conversation;
 
+            $message->body = 'http://192.168.0.21/atev-laravel-backend/public'.$fileModel->file_path;
+
             $user = User::findOrFail($conversation->user_id == auth()->id() ? $conversation->second_user_id: $conversation->user_id);
-            $user->pushNotification(auth()->user()->name.' send you a message',$message->image,$message);
+            $user->pushNotification(auth()->user()->name.' send you a message','pdf',$message->body, $message);
+            
 
             $options = array(
                 'cluster' => 'eu',
@@ -245,6 +249,8 @@ class HomeController extends Controller
 
             $data = ['from' => $sender, 'to' => $reciever];
             $pusher->trigger('my-channel', 'my-event', $data);
+
+            //return response()->json($message);
         }
     }
     public function sendOffer(Request $request)
@@ -254,43 +260,77 @@ class HomeController extends Controller
             'items.*.name' => 'required',
             'items.*.amount' => 'required',
             'items.*.price' => 'required',
-      ]);
+        ]);
 
-      $message = new Message;
-      $offerItem = new Offeritem;
-      $termsAndConditions = new TermsAndConditions;
+        $sender = Auth()->id();
+        $reciever = (int)$request->second_user_id;
 
-      $message->body = 'just_offer_no_text';
-      $message->read = 0;
-      $message->user_id = $request->user_id;
-      $message->conversation_id = $request->conversation_id;
+        $message = new Message;
+        $offerItem = new Offeritem;
+        $termsAndConditions = new TermsAndConditions;
 
-      if ($message->save()) {
-        $id = $message->id;
-        foreach ($request->items as $item) {
-            $data = [
-                'message_id' => $id,
-                'articleNumber' => $item['article'],
-                'name' => $item['name'],
-                'amount' => $item['amount'],
-                'price' => $item['price'],
-                'total' => $item['amount']*$item['price']
-            ];
-            Offeritem::insert($data);
-        }
-        foreach($request->terms as $term){
-            if($term['body'] != null){
+        $message->body = 'just_offer_no_text';
+        $message->read = 0;
+        $message->user_id = (int)$request->user_id;
+        $message->conversation_id = (int)$request->conversation_id;
+
+        $offerList = array();
+
+        if ($message->save()) {
+            $id = $message->id;
+            foreach ($request->items as $item) {
                 $data = [
                     'message_id' => $id,
-                    'body' => $term['body']
+                    'articleNumber' => $item['article'],
+                    'name' => $item['name'],
+                    'amount' => $item['amount'],
+                    'price' => $item['price'],
+                    'total' => $item['amount']*$item['price']
                 ];
-                TermsAndConditions::insert($data);
+                Offeritem::insert($data);
+            }
+            foreach($request->terms as $term){
+                if($term['body'] != null){
+                    $data = [
+                        'message_id' => $id,
+                        'body' => $term['body']
+                    ];
+                    TermsAndConditions::insert($data);
+                }
             }
         }
-      }
+
+        $offerItemList = Offeritem::where('message_id', $message->id)->get();
+        $termsList = TermsAndConditions::where('message_id', $message->id)->get();
+
+        
+
+        $conversation = $message->conversation;
+
+        $message->body = 'angebotNotification';
+        $message->offeritems = $offerItemList;
+        $message->termsandconditions = $termsList;
+
+        $user = User::findOrFail($conversation->user_id == auth()->id() ? $conversation->second_user_id: $conversation->user_id);
+        $user->pushNotification(auth()->user()->name.' send you an Angebot','Angebot', $message->body,$message);
 
 
-      return redirect()->route('chat');
+        $options = array(
+            'cluster' => 'eu',
+            'useTLS' => true
+        );
+
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+
+        $data = ['from' => $sender, 'to' => $reciever];
+        $pusher->trigger('my-channel', 'my-event', $data);
+
+        return response()->json($message);
     }
     public function conversationCreate(Request $request)
     {

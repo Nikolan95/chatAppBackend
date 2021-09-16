@@ -91,7 +91,8 @@ class ConversationController extends Controller
         $conversation = Conversation::create([
             'user_id' => auth()->user()->id,
             'second_user_id' => $request['user_id'],
-            'car_id' => $request['car_id']
+            'car_id' => $request['car_id'],
+            'type' => 'normal'
         ]);
         Message::create([
             'body' => $request['message'],

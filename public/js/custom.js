@@ -17,8 +17,8 @@ $(document).ready(function () {
         // email = $(this).attr('email');
         // address = $(this).attr('address');
         // telefon = $(this).attr('telefon');
-        car = $(this).attr('itemprop');
-        $('.chatName').html(chatName +'    '+ car);
+        //car = $(this).attr('itemprop');
+        $('.chatName').html(chatName);
         //$('.profile-name').html(chatName);
         // $('#sidename').html(chatName);
         // $('#sideemail').html(email);
@@ -220,6 +220,40 @@ $(document).ready(function () {
              })
          }
      });
+
+     $('#offerForm').on('submit', function(e) {
+        e.preventDefault();
+     user_id = $('#user_id').val();
+     reciever_id = $('#second_user_id').val();
+     conversation_id = $('#conversation_id').val();
+     read = false;
+     $.ajaxSetup({
+         headers: {
+             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         }
+     });
+         $(this).val('');
+
+        $.ajax({
+             type: "post",
+             url: "/sendOffer",
+             data: new FormData(this),
+             processData: false,
+             contentType: false,
+             cache: false,
+             success: function (data) {
+                
+             },
+             error: function (jqXHR, status, err) {
+
+             },
+             complete: function () {
+                    $(`.angebot`).modal('toggle');
+                 scrollToBottomFunc();
+             }
+         })
+     //}
+ });
 
 
     $(document).on('keyup', '.input', function (e) {

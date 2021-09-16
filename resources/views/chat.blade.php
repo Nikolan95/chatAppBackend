@@ -82,6 +82,9 @@
                             <a class="nav-link active" id="plaudern">Kunden</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" id="promotion">Promotion</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" id="gruppe">Gruppen</a>
                         </li>
                     </ul>
@@ -103,7 +106,7 @@
                             address="{{ $conversation['user']->street }} {{ $conversation['user']->city }}"
                             telefon="{{ $conversation['user']->phoneNumber }}"
                             itemid="{{$conversation['user']->id}}"
-                            itemprop="{{$conversation['car']->manufacturer_and_brand}}">
+                            >
                             <?php $pos=0 ?>
                             @foreach ($conversation['messages'] as $item)
 
