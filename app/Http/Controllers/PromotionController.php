@@ -27,8 +27,11 @@ class PromotionController extends Controller
         $groups = Group::all();
         $user =  new UserResourceLaravel(auth()->user());
         $promotion = 'promotion';
-        $conversations = Conversation::with('messages')->with('messages.offeritems')->with('messages.termsandconditions')->with('messages.file')->whereNotNull('type')->where('user_id',auth()->user()->id)->orWhere('second_user_id',auth()->user()->id)->orderBy('updated_at', 'desc')->get();
-        dd($conversations);
+        $conversations = Conversation::with('messages')->with('messages.offeritems')->with('messages.termsandconditions')->with('messages.file')
+        ->where([ ['user_id', '=', auth()->user()->id ], ['type', '=', 'promotion'] ])
+        ->orWhere([['second_user_id',auth()->user()->id], ['type', '=', 'promotion']])
+        ->orderBy('updated_at', 'desc')->get();
+        //dd($conversations);
         $count = count($conversations);
         // $array = [];
         for ($i = 0; $i < $count; $i++) {
@@ -42,7 +45,7 @@ class PromotionController extends Controller
         }
         $conversations = ConversationResource::collection($conversations);
         $conversations = $conversations->toArray($conversations);
-        dd($conversations);
+        //dd($conversations);
             //return $conversations;
         return view('chatlist')
         ->with('user', $user)

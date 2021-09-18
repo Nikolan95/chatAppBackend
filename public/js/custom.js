@@ -1,11 +1,8 @@
-var reciever_id = '';
-let my_id = "{{ Auth::id() }}";
-
-$(document).ready(function () {
-    $('.hidesidebar').hide();
-    $('.hidechatfooter').hide();
-    $('.hiddenchatheader').hide();
+// var reciever_id = '';
+// let my_id = "{{ Auth::id() }}";
+function messaging(){
     $('.conversation').click(function () {
+        //alert('kesa');
         $('.hidesidebar').show();
         $('.hidechatfooter').show();
         $('.hiddenchatheader').show();
@@ -111,7 +108,6 @@ $(document).ready(function () {
 
 
     });
-
     var pusher = new Pusher('e8eff64d8b79b8610b42', {
         cluster: 'eu'
     });
@@ -290,12 +286,141 @@ $(document).ready(function () {
             })
         }
     })
-})
-function scrollToBottomFunc() {
-    $('.chat-body').animate({
-        scrollTop: $('.chat-body').get(0).scrollHeight
-    }, 50);
+    function scrollToBottomFunc() {
+        $('.chat-body').animate({
+            scrollTop: $('.chat-body').get(0).scrollHeight
+        }, 50);
+    }
 }
+function OnloadFunction(){   
+    $('#plaudern').click(function() {
+        
+        $('.startConversation').remove();
+        $('.header').append('<button type="button" class="float-right btn btn-circle btn-sm header_button startConversation"'
+            +'data-toggle="modal" data-target="#chat-new">'
+            +'<i class="fas fa-plus button_plus"></i>'
+            +'</button>')
+
+        $.ajax({
+            type: "get",
+            url: "/normalchat",
+            data: "",
+            cache: false,
+            success: function (data) {
+                $('.user-list').remove();
+                $('#chatsidebar').html(data);
+                messaging();
+
+
+            }
+        });
+    });
+
+    $('#gruppe').click(function() {
+        $('.user-list').hide();
+        $('.startConversation').remove();
+        $('.header').append('<button type="button" class="float-right btn btn-circle btn-sm header_button createGroup"'
+                            +'data-toggle="modal" data-target="#group-new">'
+                            +'<i class="fas fa-plus button_plus"></i>'
+                            +'</button>');
+        $('#chatsidebar').prepend('<ul class="user-list listgroup">'
+                                +'<li class="user-list-item conversation">'
+                                +'<div class="users-list-body">'
+                                +'<div>'
+                                    +'<h5>grupa1</h5>'
+                                    +'<p>grupa</p>'
+                                +'</div>'
+                                +'</div>'
+                                +'</li>'
+                                +'</ul>')
+    });
+
+    $('#promotion').click(function() {
+        
+        $('.startConversation').remove();
+        $('.header').append('<a type="button" class="float-right btn btn-circle btn-sm header_button createGroup"'
+            +'href="/promotion">'
+            +'<i class="fas fa-plus button_plus"></i>'
+            +'</a>');
+
+        $.ajax({
+            type: "get",
+            url: "/promotions",
+            data: "",
+            cache: false,
+            success: function (data) {
+                $('.user-list').remove();
+                $('#chatsidebar').html(data);
+                messaging();         
+            }
+        });
+        
+        
+    });
+    $('#creategroups').on('submit', function(event) {
+        event.preventDefault();
+        $.ajax({
+            url:$(this).attr('action'),
+            method:$(this).attr('method'),
+            data:new FormData(this),
+            processData:false,
+            dataType:'json',
+            contentType:false,
+            beforeSend:function(){
+                $(document).find('span.error-text').text('');
+            },              
+            success: function(data)
+            {
+                if(data.status == 0){
+                    $.each(data.error, function(prefix, val){
+                        $('span.'+prefix+'_error').text(val[0]);
+                    });
+                }else{
+                    alert('success');
+                }
+            }
+        })
+    });
+    $('#creategroup').on('submit', function(event) {
+        event.preventDefault();
+        $.ajax({
+            url:$(this).attr('action'),
+            method:$(this).attr('method'),
+            data:new FormData(this),
+            processData:false,
+            dataType:'json',
+            contentType:false,
+            beforeSend:function(){
+                $(document).find('span.error-text').text('');
+            },              
+            success: function(data)
+            {
+                if(data.status == 0){
+                    $.each(data.error, function(prefix, val){
+                        $('span.'+prefix+'_error').text(val[0]);
+                    });
+                }else{
+                    $('#group-new').modal('hide');
+                    alert('success');
+                }
+            }
+        })
+    });
+}
+
+$(document).ready(function () {
+    $('.hidesidebar').hide();
+    $('.hidechatfooter').hide();
+    $('.hiddenchatheader').hide();
+
+    OnloadFunction();
+    messaging();
+})
+// function scrollToBottomFunc() {
+//     $('.chat-body').animate({
+//         scrollTop: $('.chat-body').get(0).scrollHeight
+//     }, 50);
+// }
 // function openModal(id){
 //     //alert(id);
 //     //alert(kesa);

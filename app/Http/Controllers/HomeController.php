@@ -26,29 +26,30 @@ class HomeController extends Controller
         $contacts = User::all();
         $groups = Group::all();
         $user =  new UserResourceLaravel(auth()->user());
-        $conversations = Conversation::with('messages')->with('messages.offeritems')->with('messages.termsandconditions')->with('messages.file')->where('user_id',auth()->user()->id)->orWhere('second_user_id',auth()->user()->id)->with('car')->orderBy('updated_at', 'desc')->get();
-		$count = count($conversations);
-		// $array = [];
-		for ($i = 0; $i < $count; $i++) {
-			for ($j = $i + 1; $j < $count; $j++) {
-				if (isset($conversations[$i]->messages->last()->id) && isset($conversations[$j]->messages->last()->id) && $conversations[$i]->messages->last()->id < $conversations[$j]->messages->last()->id) {
-					$temp = $conversations[$i];
-					$conversations[$i] = $conversations[$j];
-					$conversations[$j] = $temp;
-				}
-			}
-		}
+        $conversations = Conversation::with('messages')->with('messages.offeritems')->with('messages.termsandconditions')->with('messages.file')
+        ->where([ ['user_id', '=', auth()->user()->id ], ['type', '=', 'normal'] ])
+        ->orWhere([['second_user_id',auth()->user()->id], ['type', '=', 'normal']])->with('car')
+        ->orderBy('updated_at', 'desc')->get();
+        $count = count($conversations);
+        // $array = [];
+        for ($i = 0; $i < $count; $i++) {
+            for ($j = $i + 1; $j < $count; $j++) {
+                if (isset($conversations[$i]->messages->last()->id) && isset($conversations[$j]->messages->last()->id) && $conversations[$i]->messages->last()->id < $conversations[$j]->messages->last()->id) {
+                    $temp = $conversations[$i];
+                    $conversations[$i] = $conversations[$j];
+                    $conversations[$j] = $temp;
+                }
+            }
+        }
         $conversations = ConversationResource::collection($conversations);
         //return $conversations[0];
         $conversations = $conversations->toArray($conversations);
-
-        //dd($conversations[0]);
-
-        return view('chat')
-            ->with('user', $user)
-            ->with('conversations', $conversations)
-            ->with('contacts', $contacts)
-            ->with('groups', $groups);
+            //return $conversations;
+        return view('chatlist')
+        ->with('user', $user)
+        ->with('conversations', $conversations)
+        ->with('contacts', $contacts)
+        ->with('groups', $groups);
     }
     public function conversationMessages($id)
     {

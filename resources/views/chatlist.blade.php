@@ -33,7 +33,11 @@
                 @elseif($conversation['messages']->last()->body == 'just_offer_no_text')
                     <output class="lastmessage{{$conversation['id']}}">Angebot</output>
                 @else
-                    <output class="lastmessage{{$conversation['id']}}">{{ $conversation['messages']->last()->body }}</output>
+                    <output style="text-overflow: ellipsis !important;
+                                       overflow: hidden !important;
+                                       width: 160px !important;
+                                       height: 1.2em !important;
+                                       white-space: nowrap !important;" class="lastmessage{{$conversation['id']}}">{{ $conversation['messages']->last()->body }}</output>
                 @endif
             </div>
             <div class="last-chat-time">

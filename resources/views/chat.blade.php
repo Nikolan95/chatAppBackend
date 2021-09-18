@@ -369,8 +369,6 @@
 
 <script src="{{asset('/js/images.js')}}"></script>
 
-<script src="{{asset('/js/chatgroup.js')}}"></script>
-
 <script src="{{asset('/js/accounting.js')}}"></script>
 
 <script src="{{asset('/js/offerform.js')}}"></script>

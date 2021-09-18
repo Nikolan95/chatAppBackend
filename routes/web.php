@@ -44,7 +44,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/chat', function () {
     $contacts = User::all();
     $groups = Group::all();
     $user =  new UserResourceLaravel(auth()->user());
-    $conversations = Conversation::with('messages')->with('messages.offeritems')->with('messages.termsandconditions')->with('messages.file')->where('user_id',auth()->user()->id)->orWhere('second_user_id',auth()->user()->id)->with('car')->orderBy('updated_at', 'desc')->get();
+    $conversations = Conversation::with('messages')->with('messages.offeritems')->with('messages.termsandconditions')->with('messages.file')
+    ->where([ ['user_id', '=', auth()->user()->id ], ['type', '=', 'normal'] ])
+    ->orWhere([['second_user_id',auth()->user()->id], ['type', '=', 'normal']])->with('car')
+    ->orderBy('updated_at', 'desc')->get();
     $count = count($conversations);
     // $array = [];
     for ($i = 0; $i < $count; $i++) {
@@ -76,6 +79,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/chat', function () {
 })->name('chat');
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/normalchat', [HomeController::class, 'chat'])->name('normalchat');
      Route::get('/promotions', [PromotionController::class, 'index'])->name('promotions');
     Route::get('/conversation/{id}', [HomeController::class, 'conversationMessages'])->name('conversation.messages');
     Route::get('messages/{conversation_id}', [HomeController::class, 'getMessages'])->name('messages');
